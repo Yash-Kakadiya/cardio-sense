@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CardioSense | Risk Analysis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7f6;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #0061f2 0%, #6900f2 100%);
+            margin-bottom: 30px;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 600;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+        }
+
+        .nav-link.active {
+            color: white !important;
+            font-weight: 600;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-predict {
+            background: linear-gradient(135deg, #0061f2 0%, #6900f2 100%);
+            border: none;
+            padding: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: white;
+        }
+
+        .btn-predict:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(105, 0, 242, 0.4);
+        }
+
+        .result-box {
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            color: white;
+        }
+
+        .bg-danger {
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%) !important;
+        }
+
+        .bg-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">CardioSense 🫀</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link active" href="/">Risk Analysis</a>
+                <a class="nav-link" href="/model">Model Performance</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+
+            <div class="col-lg-8">
+
+                {% if validation_errors %}
+                <div class="alert alert-warning shadow-sm border-0" id="validation-box">
+                    <h5 class="alert-heading"><i class="bi bi-exclamation-triangle"></i> Invalid Input Detected</h5>
+                    <ul class="mb-0 ps-3">
+                        {% for err in validation_errors %}
+                        <li>{{ err }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                <div class="card p-4 mb-4">
+                    <h4 class="mb-4 text-primary">Patient Data</h4>
+
+                    <form action="/predict" method="POST">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Age (Years)</label>
+                                <input type="number" class="form-control" name="age" min="10" max="120" required
+                                    value="{{ inputs.age if inputs else '' }}">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Gender</label>
+                                <select class="form-select" name="gender">
+                                    <option value="1" {% if inputs and inputs.gender=='1' %}selected{% endif %}>Female
+                                    </option>
+                                    <option value="2" {% if inputs and inputs.gender=='2' %}selected{% endif %}>Male
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-4"></div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Height (cm)</label>
+                                <input type="number" class="form-control" name="height" id="height" min="50" max="250"
+                                    required oninput="calcBMI()" value="{{ inputs.height if inputs else '' }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Weight (kg)</label>
+                                <input type="number" class="form-control" name="weight" id="weight" min="10" max="300"
+                                    required oninput="calcBMI()" value="{{ inputs.weight if inputs else '' }}">
+                            </div>
+                            <div class="col-12 text-center my-2">
+                                <span class="badge bg-secondary p-2" id="bmi-display">BMI: --</span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Systolic BP (High)</label>
+                                <input type="number" class="form-control" name="ap_hi" min="50" max="250" required
+                                    value="{{ inputs.ap_hi if inputs else '' }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Diastolic BP (Low)</label>
+                                <input type="number" class="form-control" name="ap_lo" min="30" max="200" required
+                                    value="{{ inputs.ap_lo if inputs else '' }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Cholesterol</label>
+                                <select class="form-select" name="cholesterol">
+                                    <option value="1" {% if inputs and inputs.cholesterol=='1' %}selected{% endif %}>
+                                        Normal</option>
+                                    <option value="2" {% if inputs and inputs.cholesterol=='2' %}selected{% endif %}>
+                                        Above Normal</option>
+                                    <option value="3" {% if inputs and inputs.cholesterol=='3' %}selected{% endif %}>
+                                        Well Above Normal</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Glucose</label>
+                                <select class="form-select" name="gluc">
+                                    <option value="1" {% if inputs and inputs.gluc=='1' %}selected{% endif %}>Normal
+                                    </option>
+                                    <option value="2" {% if inputs and inputs.gluc=='2' %}selected{% endif %}>Above
+                                        Normal</option>
+                                    <option value="3" {% if inputs and inputs.gluc=='3' %}selected{% endif %}>Well Above
+                                        Normal</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Smoking?</label>
+                                <select class="form-select" name="smoke">
+                                    <option value="0" {% if inputs and inputs.smoke=='0' %}selected{% endif %}>No
+                                    </option>
+                                    <option value="1" {% if inputs and inputs.smoke=='1' %}selected{% endif %}>Yes
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Alcohol?</label>
+                                <select class="form-select" name="alco">
+                                    <option value="0" {% if inputs and inputs.alco=='0' %}selected{% endif %}>No
+                                    </option>
+                                    <option value="1" {% if inputs and inputs.alco=='1' %}selected{% endif %}>Yes
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Active?</label>
+                                <select class="form-select" name="active">
+                                    <option value="1" {% if inputs and inputs.active=='1' %}selected{% endif %}>Yes
+                                    </option>
+                                    <option value="0" {% if inputs and inputs.active=='0' %}selected{% endif %}>No
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-primary w-100 btn-predict">Analyze Risk</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            {% if prediction_text %}
+            <div class="col-lg-8" id="result-section">
+                <div class="card p-4 result-box bg-{{ alert_class }}">
+                    <h3>Risk Probability</h3>
+                    <h1 class="display-4 fw-bold">{{ prediction_text }}</h1>
+                    <p class="mb-0 text-uppercase">Risk Level: <strong>{{ risk_level }}</strong></p>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="card p-3">
+                            <h6 class="text-center">BMI Context</h6>
+                            <canvas id="bmiChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card p-3">
+                            <h6 class="text-center">BP Context</h6>
+                            <canvas id="bpChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <script>
+        function calcBMI() {
+            let h = document.getElementById('height').value / 100;
+            let w = document.getElementById('weight').value;
+            if (h > 0 && w > 0) {
+                let bmi = (w / (h * h)).toFixed(2);
+                document.getElementById('bmi-display').innerText = "BMI: " + bmi;
+            }
+        }
+
+        {% if scroll_to_result %}
+        document.getElementById('result-section') ?
+            document.getElementById('result-section').scrollIntoView({ behavior: 'smooth' }) :
+            document.getElementById('validation-box').scrollIntoView({ behavior: 'smooth' });
+
+        const ctxBMI = document.getElementById('bmiChart');
+        if (ctxBMI) {
+            new Chart(ctxBMI, {
+                type: 'bar',
+                data: {
+                    labels: ['You', 'Healthy Avg', 'Disease Avg'],
+                    datasets: [{
+                        label: 'BMI',
+                        data: [{{ chart_data.user_bmi }}, {{ chart_data.avg_healthy_bmi }}, {{ chart_data.avg_sick_bmi }}],
+        backgroundColor: ['#6900f2', '#38ef7d', '#ff4b2b']
+                    }]
+                },
+        options: { scales: { y: { beginAtZero: true } } }
+            });
+        }
+
+        const ctxBP = document.getElementById('bpChart');
+        if (ctxBP) {
+            new Chart(ctxBP, {
+                type: 'bar',
+                data: {
+                    labels: ['You', 'Healthy Avg', 'Disease Avg'],
+                    datasets: [{
+                        label: 'Systolic BP',
+                        data: [{{ chart_data.user_bp }}, {{ chart_data.avg_healthy_bp }}, {{ chart_data.avg_sick_bp }}],
+        backgroundColor: ['#6900f2', '#38ef7d', '#ff4b2b']
+                    }]
+                },
+        options: { scales: { y: { beginAtZero: true } } }
+            });
+        }
+        {% endif %}
+    </script>
+</body>
+
+</html>

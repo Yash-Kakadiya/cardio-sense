@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Performance | CardioSense</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7f6;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #0061f2 0%, #6900f2 100%);
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 600;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #6900f2;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">CardioSense 🫀</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">Risk Analysis</a>
+                <a class="nav-link active" href="/model">Model Performance</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="text-center mb-4 text-secondary">Random Forest Model Evaluation</h2>
+
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="card p-4">
+                    <div class="metric-value">{{ metrics.accuracy }}%</div>
+                    <div class="metric-label">Accuracy</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-4">
+                    <div class="metric-value">{{ metrics.precision }}%</div>
+                    <div class="metric-label">Precision</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-4">
+                    <div class="metric-value">{{ metrics.recall }}%</div>
+                    <div class="metric-label">Recall</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-4">
+                    <div class="metric-value">{{ metrics.f1 }}%</div>
+                    <div class="metric-label">F1 Score</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-lg-6">
+                <div class="card p-4">
+                    <h5 class="text-center mb-3">Confusion Matrix</h5>
+                    <div class="d-flex justify-content-center align-items-center" style="height: 300px;">
+                        <table class="table table-bordered text-center" style="width: 80%;">
+                            <thead class="table-light">
+                                <tr>
+                                    <th></th>
+                                    <th>Pred: Healthy</th>
+                                    <th>Pred: Disease</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th class="table-light">Actual: Healthy</th>
+                                    <td class="bg-success text-white fw-bold fs-4">{{ metrics.cm[0][0] }}</td>
+                                    <td class="bg-light text-muted">{{ metrics.cm[0][1] }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="table-light">Actual: Disease</th>
+                                    <td class="bg-light text-danger fw-bold">{{ metrics.cm[1][0] }}</td>
+                                    <td class="bg-danger text-white fw-bold fs-4">{{ metrics.cm[1][1] }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-center text-muted small mt-2">
+                        <span class="text-danger">Red:</span> Correct Disease Detection |
+                        <span class="text-success">Green:</span> Correct Healthy Detection
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card p-4">
+                    <h5 class="text-center mb-3">ROC Curve</h5>
+                    <canvas id="rocChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ROC Chart
+        const ctxROC = document.getElementById('rocChart');
+        const fpr = {{ metrics.roc_fpr }};
+        const tpr = {{ metrics.roc_tpr }};
+
+        new Chart(ctxROC, {
+            type: 'line',
+            data: {
+                labels: fpr, // X-axis (FPR)
+                datasets: [{
+                    label: 'ROC Curve',
+                    data: tpr,   // Y-axis (TPR)
+                    borderColor: '#6900f2',
+                    backgroundColor: 'rgba(105, 0, 242, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'Random Guess',
+                    data: fpr, // Diagonal line
+                    borderColor: '#ccc',
+                    borderDash: [5, 5],
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { title: { display: true, text: 'False Positive Rate' }, type: 'linear', min: 0, max: 1 },
+                    y: { title: { display: true, text: 'True Positive Rate' }, min: 0, max: 1 }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
