@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CardioSense | Cardiovascular Risk Analysis</title>
+    <title>CardioSense | Risk Analysis</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../static/assets/images/favoicon.ico">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,10 +22,6 @@
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
 
     <!-- Print Styles -->
     <style>
@@ -215,7 +214,9 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <i class="fas fa-heartbeat me-2"></i>CardioSense
+                <img src="../static/assets/images/logo.png" alt="CardioSense Logo" width="50"
+                    class="fas fa-heartbeat me-2">
+                CardioSense
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -318,8 +319,9 @@
                                     </label>
                                     <select class="form-select" name="gender" required>
                                         <option value="1" {% if inputs and inputs.gender=='1' %}selected{% endif %}>
-                                            Female</option>
+                                            Female ♀️</option>
                                         <option value="2" {% if inputs and inputs.gender=='2' %}selected{% endif %}>Male
+                                            ♂️
                                         </option>
                                     </select>
                                 </div>
@@ -365,6 +367,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="bmi-display-box">
+                                        <h5>BMI:</h5>
                                         <h5 id="bmi-display">
                                             <div style="font-size: 2rem; font-weight: 900;">--</div>
                                             <div style="font-size: 0.9rem;">Enter values above</div>
@@ -430,11 +433,11 @@
                                     </label>
                                     <select class="form-select" name="cholesterol" required>
                                         <option value="1" {% if inputs and inputs.cholesterol=='1' %}selected{% endif
-                                            %}>Normal</option>
+                                            %}>Normal 🙂</option>
                                         <option value="2" {% if inputs and inputs.cholesterol=='2' %}selected{% endif
-                                            %}>Above Normal</option>
+                                            %}>Above Normal 😐</option>
                                         <option value="3" {% if inputs and inputs.cholesterol=='3' %}selected{% endif
-                                            %}>Well Above Normal</option>
+                                            %}>Well Above Normal 😶</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
@@ -444,11 +447,12 @@
                                     </label>
                                     <select class="form-select" name="gluc" required>
                                         <option value="1" {% if inputs and inputs.gluc=='1' %}selected{% endif %}>Normal
+                                            🙂
                                         </option>
                                         <option value="2" {% if inputs and inputs.gluc=='2' %}selected{% endif %}>Above
-                                            Normal</option>
+                                            Normal 😐</option>
                                         <option value="3" {% if inputs and inputs.gluc=='3' %}selected{% endif %}>Well
-                                            Above Normal</option>
+                                            Above Normal 😶</option>
                                     </select>
                                 </div>
                             </div>
@@ -481,8 +485,8 @@
                                         Do you smoke?
                                     </label>
                                     <select class="form-select" name="smoke" required>
-                                        <option value="0" selected>No</option>
-                                        <option value="1">Yes</option>
+                                        <option value="0" selected>No 🚭</option>
+                                        <option value="1">Yes 🚬</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
@@ -491,8 +495,8 @@
                                         Consume alcohol?
                                     </label>
                                     <select class="form-select" name="alco" required>
-                                        <option value="0" selected>No</option>
-                                        <option value="1">Yes</option>
+                                        <option value="0" selected>No 🚫</option>
+                                        <option value="1">Yes 🍻</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
@@ -501,8 +505,8 @@
                                         Physically active?
                                     </label>
                                     <select class="form-select" name="active" required>
-                                        <option value="1" selected>Yes</option>
-                                        <option value="0">No</option>
+                                        <option value="1" selected>Yes 🏃‍♂️</option>
+                                        <option value="0">No 😴</option>
                                     </select>
                                 </div>
                             </div>
@@ -575,7 +579,7 @@
                                     <div>
                                         <h6 class="fw-bold mb-2">AI Model Analysis</h6>
                                         <p class="mb-0 text-muted">Based on 4 Optimized Models (RF, XGB, GB, LR) with
-                                            ≈73%
+                                            ~73%
                                             accuracy.</p>
                                     </div>
                                 </div>
@@ -708,8 +712,8 @@
     <footer class="mt-5 py-4 bg-white border-top">
         <div class="container text-center text-muted">
             <p class="mb-0">
-                <i class="fas fa-shield-alt me-2"></i>
-                CardioSense by ¥@$# Kakadiya | AI-Powered Health Assessment
+                <img src="../static/assets/images/logo.png" alt="CardioSense Logo" width="40" class="fas fa-heartbeat">
+                CardioSense by ¥@$# Kakadiya | AI-Powered Cardiovascular Disease Risk Assessment
             </p>
         </div>
     </footer>

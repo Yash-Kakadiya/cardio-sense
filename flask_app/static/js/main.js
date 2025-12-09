@@ -350,22 +350,22 @@ function getBMICategory(bmi) {
 
     if (value < 18.5) {
         return {
-            label: 'Underweight',
+            label: 'Underweight 🕴️',
             gradient: 'linear-gradient(135deg, #4ea8de 0%, #3a86c4 100%)'
         };
     } else if (value >= 18.5 && value < 25) {
         return {
-            label: 'Normal Weight',
+            label: 'Normal Weight 🏋🏻‍♀️',
             gradient: 'linear-gradient(135deg, #06d6a0 0%, #05b185 100%)'
         };
     } else if (value >= 25 && value < 30) {
         return {
-            label: 'Overweight',
+            label: 'Overweight 😐',
             gradient: 'linear-gradient(135deg, #ffa500 0%, #e69500 100%)'
         };
     } else {
         return {
-            label: 'Obese',
+            label: 'Obese 🫃',
             gradient: 'linear-gradient(135deg, #ef476f 0%, #d63a5e 100%)'
         };
     }

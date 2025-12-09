@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Model Diagnostics | CardioSense AI</title>
+    <title>CardioSense | Model Diagnostics</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../static/assets/images/favoicon.ico">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,9 +22,6 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
 </head>
 
 <body>
@@ -31,7 +30,9 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <i class="fas fa-heartbeat me-2"></i>CardioSense
+                <img src="../static/assets/images/logo.png" alt="CardioSense Logo" width="50"
+                    class="fas fa-heartbeat me-2">
+                CardioSense
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -272,6 +273,16 @@
         {% endif %}
 
     </div>
+
+    <!-- Footer -->
+    <footer class="mt-0 py-4 bg-white border-top">
+        <div class="container text-center text-muted">
+            <p class="mb-0">
+                <img src="../static/assets/images/logo.png" alt="CardioSense Logo" width="40" class="fas fa-heartbeat">
+                CardioSense by ¥@$# Kakadiya | AI-Powered Cardiovascular Disease Risk Assessment
+            </p>
+        </div>
+    </footer>
 
     <!-- Embedded Chart Data -->
     <script id="chartData" type="application/json">

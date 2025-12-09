@@ -120,8 +120,8 @@ body {
     transform: translateY(-2px);
 }
 
-.navbar-brand i {
-    color: var(--primary-light);
+.navbar-brand img {
+    /* color: var(--primary-light); */
     animation: heartbeat 1.5s ease-in-out infinite;
 }
 
@@ -129,17 +129,17 @@ body {
 
     0%,
     100% {
-        transform: scale(1);
+        transform: scale(1.25);
     }
 
     10%,
     30% {
-        transform: scale(1.1);
+        transform: scale(1.45);
     }
 
     20%,
     40% {
-        transform: scale(1.05);
+        transform: scale(1.35);
     }
 }
 
