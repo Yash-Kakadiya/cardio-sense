@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CardioSense{% endblock %} | AI Heart Risk Assessment</title>
+    <meta name="description"
+        content="AI-powered cardiovascular disease risk assessment. Get instant, accurate predictions based on your health metrics.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/images/favoicon.ico') }}">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../static/css/new-style.css">
+    <link rel="stylesheet" href="../static/css/new-style-pages.css">
+    <link rel="stylesheet" href="../static/css/new-style-insights-about.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <img src="../static/assets/images/logo.png" alt="CardioSense Logo" class="nav-logo-img">
+                <span>CardioSense</span>
+            </a>
+
+            <div class="nav-links" id="navLinks">
+                <a href="/" class="nav-link {% if request.endpoint == 'home' %}active{% endif %}">Home</a>
+                <a href="/assess" class="nav-link {% if request.endpoint == 'assess' %}active{% endif %}">Assessment</a>
+                <a href="/insights"
+                    class="nav-link {% if request.endpoint == 'insights' %}active{% endif %}">Insights</a>
+                <a href="/about" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">About</a>
+            </div>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="../static/assets/images/logo.png" alt="CardioSense Logo" class="footer-logo-img">
+                        <span>CardioSense</span>
+                    </div>
+                    <p>AI-powered cardiovascular disease risk assessment. Making heart health accessible to everyone.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://github.com/Yash-Kakadiya" target="_blank" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/yash-kakadiya-" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://twitter.com/yash__8055" target="_blank" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/assess">Assessment</a></li>
+                        <li><a href="/insights">Model Insights</a></li>
+                        <li><a href="/about">About</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://github.com/Yash-Kakadiya/cardio-sense" target="_blank">GitHub Repo</a></li>
+                        <li><a href="https://www.kaggle.com/datasets/sulianova/cardiovascular-disease-dataset"
+                                target="_blank">Dataset</a></li>
+                        <li><a href="/insights">How It Works</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 CardioSense. Built with 💖 by <a href="https://linkedin.com/in/yash-kakadiya-"
+                        target="_blank">¥@$# Kakadiya</a></p>
+                <p>For educational purposes only. Not medical advice.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../static/js/new-main.js"></script>
+
+    <!-- Floating Hearts Animation -->
+    <script>
+        (function () {
+            const particlesContainer = document.getElementById('particles');
+            const heartEmojis = ['💝', '💖', '💗', '💓', '💞', '💕', '❣️', '❤️‍🩹', '❤️', '🩷', '🧡', '💛', '💚', '💙', '🩵', '💜', '🤎', '🖤', '🩶', '🤍', '🫀'];
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+
+                // Random heart emoji
+                particle.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+
+                // Random properties - more variety
+                const size = Math.random() * 14 + 10; // 10-24px
+                const left = Math.random() * 100;
+                const delay = Math.random() * 10;
+                const duration = Math.random() * 12 + 15; // 15-27s (faster)
+
+                particle.style.fontSize = size + 'px';
+                particle.style.left = left + '%';
+                particle.style.animationDelay = delay + 's';
+                particle.style.animationDuration = duration + 's';
+                particle.style.opacity = Math.random() * 0.3 + 0.2; // 0.2-0.5
+
+                particlesContainer.appendChild(particle);
+            }
+        })();
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

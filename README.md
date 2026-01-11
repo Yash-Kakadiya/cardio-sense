@@ -31,19 +31,21 @@ Unlike black-box AI tools, CardioSense provides **explainable insights**, helpin
 ## ✨ Key Features
 * **🩺 Interactive Patient Wizard:** A user-friendly, step-by-step form to collect health data without overwhelming the user.
 * **⚡ Real-Time Validation:** Instant feedback on impossible medical values (e.g., BP > 250 or < 30) ensures high-quality input data.
-* **📊 Doctor Dashboard:** A dedicated analytics page showing Model Accuracy, ROC Curves, Confusion Matrix, and Feature Importance charts.
+* **📊 Model Insights Dashboard:** A dedicated analytics page showing Model Accuracy, ROC Curves, Confusion Matrix, Radar Chart, and Feature Importance visualizations.
+* **🔍 SHAP Explainability:** Personalized risk factor explanations using SHAP (SHapley Additive exPlanations) for transparent AI predictions.
 * **🧠 Intelligent Backend:** Calculates advanced derived features like **Pulse Pressure** and **BMI Categories** on the fly.
+* **🎨 Modern Glassmorphism UI:** Stunning frosted-glass design with animated floating heart backgrounds and smooth transitions.
 * **📱 Responsive Design:** Fully optimized for mobile, tablet, and desktop using Bootstrap 5.
-* **📄 PDF Report Ready:** Includes print-optimized styles for generating patient reports.
+* **📄 PDF Report Ready:** Print-optimized styles for generating professional patient health reports.
 
 ---
 
 ## 🛠️ Tech Stack
 | Category | Technologies |
 | :--- | :--- |
-| **Frontend** | HTML5, CSS3, JavaScript (ES6), Bootstrap 5, Chart.js |
+| **Frontend** | HTML5, CSS3, JavaScript (ES6), Bootstrap 5, Chart.js, Font Awesome |
 | **Backend** | Python 3.10, Flask, Jinja2, Gunicorn |
-| **Machine Learning** | Scikit-Learn, XGBoost, Pandas, NumPy, Joblib |
+| **Machine Learning** | Scikit-Learn, XGBoost, Pandas, NumPy, Joblib, SHAP |
 | **Data Processing** | Standard Scaling, One-Hot Encoding, Feature Engineering |
 | **Deployment** | Render / Railway, Git |
 
@@ -87,12 +89,23 @@ We benchmarked our custom "Scratch" implementation against industry-standard lib
 ## 📂 Folder Structure
 ```bash
 CardioSense/
+├── 📂 assets/              # Logo and banner images
 ├── 📂 data/                # Raw and processed datasets
 ├── 📂 deployment/          # Cloud configuration (Procfile, requirements.txt)
 ├── 📂 flask_app/           # Main Application Code
 │   ├── 📂 static/          # CSS, JS, Images
-│   ├── 📂 templates/       # HTML Pages (index.html, model.html)
-│   ├── app.py              # Flask Backend
+│   │   ├── 📂 css/         # Stylesheets (new-style.css, etc.)
+│   │   ├── 📂 js/          # JavaScript files
+│   │   └── 📂 assets/      # Static images
+│   ├── 📂 templates/       # HTML Pages
+│   │   ├── base.html       # Base template with navbar & footer
+│   │   ├── landing.html    # Landing page
+│   │   ├── index.html      # Home page
+│   │   ├── assess.html     # Health assessment wizard
+│   │   ├── results.html    # Prediction results with SHAP
+│   │   ├── insights.html   # Model insights dashboard
+│   │   └── about.html      # About page
+│   ├── app.py              # Flask Backend with SHAP
 │   ├── model.pkl           # Trained Ensemble Model
 │   ├── scaler.pkl          # Feature Scaler
 │   └── features.pkl        # Feature Names List
@@ -149,15 +162,15 @@ CardioSense/
 
 ## 🖥️ UI Walkthrough
 
-| **1. Assessment Wizard** | **2. Risk Result** |
+| **1. Landing Page** | **2. Assessment Wizard** |
 | :---: | :---: |
 |  |  |
-| *Step-by-step data collection with live BMI calculation.* | *Clear risk probability with actionable health tips.* |
+| *Modern glassmorphism design with animated hearts.* | *Step-by-step data collection with live BMI calculation.* |
 
-| **3. Doctor Dashboard** | **4. Feature Importance** |
+| **3. Risk Results** | **4. Model Insights** |
 | :---: | :---: |
 |  |  |
-| *Comprehensive metrics (ROC, Confusion Matrix).* | *Explainable AI showing top risk factors.* |
+| *SHAP-powered explanations with personalized risk factors.* | *Comprehensive metrics (ROC, Confusion Matrix, Radar Chart).* |
 
 -----
 

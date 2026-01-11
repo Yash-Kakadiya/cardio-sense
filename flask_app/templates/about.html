@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% block title %}About{% endblock %}
+
+{% block content %}
+<section class="about-page">
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="about-hero">
+            <div class="about-hero-content">
+                <span class="page-badge">About CardioSense</span>
+                <h1>Built with Purpose,<br><span class="text-gradient">Powered by Science</span></h1>
+                <p>CardioSense combines machine learning expertise with healthcare awareness to provide accessible
+                    cardiovascular risk assessment for everyone.</p>
+            </div>
+            <div class="about-hero-visual">
+                <div class="floating-icons">
+                    <div class="floating-icon icon-1"><i class="fas fa-heart"></i></div>
+                    <div class="floating-icon icon-2"><i class="fas fa-brain"></i></div>
+                    <div class="floating-icon icon-3"><i class="fas fa-code"></i></div>
+                    <div class="floating-icon icon-4"><i class="fas fa-chart-line"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mission Section -->
+        <div class="about-section mission">
+            <div class="mission-content">
+                <h2>Our Mission</h2>
+                <p>Cardiovascular disease remains the leading cause of death globally. Early detection and awareness can
+                    save lives. CardioSense aims to democratize access to AI-powered health insights, empowering
+                    individuals to take proactive steps toward heart health.</p>
+                <div class="mission-stats">
+                    <div class="mission-stat">
+                        <span class="stat-value">17.9M</span>
+                        <span class="stat-label">Deaths per year from CVD globally</span>
+                    </div>
+                    <div class="mission-stat">
+                        <span class="stat-value">80%</span>
+                        <span class="stat-label">Of premature CVD is preventable</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="about-section features">
+            <h2>What Makes CardioSense Special</h2>
+            <div class="about-features-grid">
+                <div class="about-feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Privacy-First</h3>
+                    <p>Your data is never stored. All processing happens in real-time with immediate data disposal.</p>
+                </div>
+                <div class="about-feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Explainable AI</h3>
+                    <p>SHAP-powered explanations show exactly why the model made its prediction.</p>
+                </div>
+                <div class="about-feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-universal-access"></i>
+                    </div>
+                    <h3>Free & Accessible</h3>
+                    <p>No signup, no payment, no barriers. Heart health awareness should be free for everyone.</p>
+                </div>
+                <div class="about-feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3>Open Source</h3>
+                    <p>Full transparency with code available on GitHub for review and contribution.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="about-section tech-stack">
+            <h2>Technology Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-category">
+                    <h3><i class="fas fa-server"></i> Backend</h3>
+                    <div class="tech-items">
+                        <span class="tech-item">Python</span>
+                        <span class="tech-item">Flask</span>
+                        <span class="tech-item">Gunicorn</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h3><i class="fas fa-brain"></i> Machine Learning</h3>
+                    <div class="tech-items">
+                        <span class="tech-item">scikit-learn</span>
+                        <span class="tech-item">XGBoost</span>
+                        <span class="tech-item">SHAP</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h3><i class="fas fa-palette"></i> Frontend</h3>
+                    <div class="tech-items">
+                        <span class="tech-item">HTML5</span>
+                        <span class="tech-item">CSS3</span>
+                        <span class="tech-item">JavaScript</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h3><i class="fas fa-cloud"></i> Deployment</h3>
+                    <div class="tech-items">
+                        <span class="tech-item">Render</span>
+                        <span class="tech-item">Git</span>
+                        <span class="tech-item">GitHub</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Developer Section -->
+        <div class="about-section developer">
+            <div class="developer-card">
+                <div class="developer-avatar">
+                    <img src="../static/assets/images/profileXlogo_gif.gif" alt="Yash Kakadiya"
+                        onerror="this.src='https://ui-avatars.com/api/?name=Yash+Kakadiya&size=200&background=1a56db&color=fff'">
+                </div>
+                <div class="developer-info">
+                    <h2>Meet the Developer</h2>
+                    <h3>¥@$# Kakadiya</h3>
+                    <p class="developer-title">Machine Learning Engineer & Full-Stack Developer</p>
+                    <p class="developer-bio">Passionate about leveraging technology to solve real-world problems.
+                        CardioSense was born from the intersection of machine learning expertise and a desire to make
+                        healthcare insights accessible to everyone.</p>
+
+                    <div class="social-links">
+                        <a href="https://github.com/Yash-Kakadiya" target="_blank" class="social-link github">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="https://linkedin.com/in/yash-kakadiya-" target="_blank" class="social-link linkedin">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="https://twitter.com/yash__8055" target="_blank" class="social-link twitter">
+                            <i class="fab fa-twitter"></i>
+                            <span>Twitter</span>
+                        </a>
+                        <a href="mailto:yashkakadiya77@example.com" class="social-link email">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Links -->
+        <div class="about-section project-links">
+            <h2>Explore the Project</h2>
+            <div class="project-links-grid">
+                <a href="https://github.com/Yash-Kakadiya/cardio-sense" target="_blank" class="project-link">
+                    <i class="fab fa-github"></i>
+                    <div>
+                        <h4>Source Code</h4>
+                        <p>View the complete codebase on GitHub</p>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="https://www.kaggle.com/datasets/sulianova/cardiovascular-disease-dataset" target="_blank"
+                    class="project-link">
+                    <i class="fab fa-kaggle"></i>
+                    <div>
+                        <h4>Dataset</h4>
+                        <p>Original cardiovascular disease dataset</p>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="/insights" class="project-link">
+                    <i class="fas fa-book-open"></i>
+                    <div>
+                        <h4>Model Documentation</h4>
+                        <p>Learn how the AI model works</p>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="about-disclaimer">
+            <i class="fas fa-info-circle"></i>
+            <div>
+                <h4>Medical Disclaimer</h4>
+                <p>CardioSense is designed for educational and informational purposes only. It is not intended to be a
+                    substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your
+                    physician or other qualified health provider with any questions you may have regarding a medical
+                    condition.</p>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="about-cta">
+            <h2>Ready to Check Your Heart Health?</h2>
+            <p>Get your personalized cardiovascular risk assessment in under 2 minutes</p>
+            <a href="/assess" class="btn btn-primary btn-lg">
+                <i class="fas fa-heartbeat"></i>
+                <span>Start Free Assessment</span>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

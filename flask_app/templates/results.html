@@ -1,0 +1,864 @@
+{% extends "base.html" %}
+{% block title %}Results{% endblock %}
+
+{% block head %}
+<style>
+    @media print {
+
+        /* Hide non-essential elements */
+        .navbar,
+        .footer,
+        .results-header,
+        .results-actions,
+        .animated-bg,
+        .particles,
+        .whatif-card,
+        .charts-grid,
+        .btn,
+        .back-link,
+        .theme-toggle,
+        .mobile-menu-toggle,
+        .section-card.whatif-scenarios {
+            display: none !important;
+        }
+
+        /* Reset page styling */
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        html,
+        body {
+            background: white !important;
+            color: #1a1a1a !important;
+            font-size: 11pt !important;
+            line-height: 1.4 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        body::before,
+        body::after {
+            display: none !important;
+        }
+
+        main {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .container {
+            max-width: 100% !important;
+            padding: 0 15px !important;
+        }
+
+        .results-page {
+            padding: 0 !important;
+        }
+
+        /* Section cards */
+        .section-card {
+            background: white !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            box-shadow: none !important;
+            border: 1px solid #ccc !important;
+            border-radius: 8px !important;
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+            margin-bottom: 15px !important;
+            padding: 15px !important;
+        }
+
+        /* Result hero */
+        .result-hero {
+            display: block !important;
+            background: #f8f9fa !important;
+            box-shadow: none !important;
+            border: 2px solid #333 !important;
+            border-radius: 8px !important;
+            padding: 20px !important;
+            margin-bottom: 20px !important;
+            page-break-inside: avoid !important;
+        }
+
+        .result-hero-content {
+            margin-bottom: 15px !important;
+        }
+
+        .result-badge {
+            display: inline-block !important;
+            padding: 5px 15px !important;
+            border-radius: 20px !important;
+            font-size: 12pt !important;
+            font-weight: bold !important;
+        }
+
+        .result-badge.success {
+            background: #d4edda !important;
+            color: #155724 !important;
+        }
+
+        .result-badge.warning {
+            background: #fff3cd !important;
+            color: #856404 !important;
+        }
+
+        .result-badge.danger {
+            background: #f8d7da !important;
+            color: #721c24 !important;
+        }
+
+        .result-title {
+            font-size: 16pt !important;
+            margin: 10px 0 !important;
+            color: #1a1a1a !important;
+        }
+
+        .result-description {
+            font-size: 10pt !important;
+            color: #444 !important;
+            line-height: 1.4 !important;
+        }
+
+        /* Gauge */
+        .result-gauge {
+            text-align: center !important;
+            margin-top: 15px !important;
+        }
+
+        .gauge-container {
+            display: inline-block !important;
+        }
+
+        .gauge-svg {
+            width: 150px !important;
+            height: auto !important;
+        }
+
+        .gauge-value {
+            margin-top: 5px !important;
+        }
+
+        .gauge-percent {
+            font-size: 18pt !important;
+            font-weight: bold !important;
+            color: #1a1a1a !important;
+        }
+
+        .gauge-label {
+            display: block !important;
+            font-size: 9pt !important;
+            color: #666 !important;
+        }
+
+        .gauge-legend {
+            margin-top: 8px !important;
+            font-size: 8pt !important;
+        }
+
+        /* Quick stats */
+        .quick-stats {
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 10px !important;
+            margin-bottom: 15px !important;
+        }
+
+        .stat-card {
+            background: #f5f5f5 !important;
+            backdrop-filter: none !important;
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+            padding: 10px !important;
+            border-radius: 6px !important;
+        }
+
+        .stat-icon {
+            width: 32px !important;
+            height: 32px !important;
+            font-size: 14px !important;
+        }
+
+        .stat-value {
+            font-size: 14pt !important;
+            font-weight: bold !important;
+        }
+
+        .stat-label {
+            font-size: 8pt !important;
+            color: #666 !important;
+        }
+
+        /* SHAP Factors */
+        .factors-container {
+            display: block !important;
+        }
+
+        .factors-section {
+            margin-bottom: 15px !important;
+        }
+
+        .factor-item {
+            background: #f9f9f9 !important;
+            border: 1px solid #e0e0e0 !important;
+            margin-bottom: 5px !important;
+            padding: 8px !important;
+            border-radius: 4px !important;
+            page-break-inside: avoid !important;
+        }
+
+        .factor-name {
+            font-size: 10pt !important;
+            font-weight: 600 !important;
+        }
+
+        .factor-value {
+            font-size: 9pt !important;
+        }
+
+        /* Recommendations */
+        .recommendations-grid {
+            display: block !important;
+        }
+
+        .recommendation-item {
+            display: flex !important;
+            gap: 10px !important;
+            margin-bottom: 10px !important;
+            padding: 10px !important;
+            background: #f8f9fa !important;
+            border-radius: 4px !important;
+            page-break-inside: avoid !important;
+        }
+
+        .rec-icon {
+            width: 30px !important;
+            height: 30px !important;
+            font-size: 12px !important;
+            flex-shrink: 0 !important;
+        }
+
+        .rec-content h4 {
+            font-size: 10pt !important;
+            margin-bottom: 3px !important;
+        }
+
+        .rec-content p {
+            font-size: 9pt !important;
+            color: #444 !important;
+            margin: 0 !important;
+        }
+
+        /* Print header */
+        .print-header {
+            display: block !important;
+            text-align: center;
+            padding: 15px 0 20px !important;
+            border-bottom: 3px solid #333;
+            margin-bottom: 20px;
+        }
+
+        .print-header h1 {
+            font-size: 22pt !important;
+            margin: 0 0 5px 0 !important;
+            color: #1a1a1a !important;
+        }
+
+        .print-header p {
+            color: #666 !important;
+            font-size: 10pt !important;
+            margin: 0 !important;
+        }
+
+        /* Print footer */
+        .print-footer {
+            display: block !important;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 8px 15px;
+            border-top: 1px solid #ccc;
+            font-size: 8pt;
+            color: #666;
+            background: white !important;
+        }
+
+        /* Disclaimer */
+        .disclaimer-card {
+            background: #fff3cd !important;
+            border: 1px solid #ffc107 !important;
+            padding: 12px !important;
+            border-radius: 6px !important;
+            page-break-inside: avoid !important;
+        }
+
+        .disclaimer-card i {
+            color: #856404 !important;
+        }
+
+        .disclaimer-card strong {
+            font-size: 10pt !important;
+        }
+
+        .disclaimer-card p {
+            font-size: 9pt !important;
+            margin: 5px 0 0 0 !important;
+        }
+
+        /* Page settings */
+        @page {
+            margin: 1.5cm 1cm;
+            size: A4;
+        }
+
+        @page :first {
+            margin-top: 1cm;
+        }
+    }
+
+    .print-header,
+    .print-footer {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Print Header (only shows when printing) -->
+<div class="print-header">
+    <h1>CardioSense Health Report</h1>
+    <p>Generated on {{ "now"|default("") }}</p>
+</div>
+
+<section class="results-page">
+    <div class="container">
+        <!-- Results Header -->
+        <div class="results-header">
+            <a href="/assess" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                <span>New Assessment</span>
+            </a>
+        </div>
+
+        {% if result %}
+        <!-- Main Result Card -->
+        <div class="result-hero">
+            <div class="result-hero-content">
+                <div class="result-badge {{ result.risk_category.color }}">
+                    <i
+                        class="fas fa-{{ 'check-circle' if result.risk_category.level == 'Low' else 'exclamation-triangle' if result.risk_category.level == 'Moderate' else 'times-circle' }}"></i>
+                    <span>{{ result.risk_category.level }} Risk</span>
+                </div>
+
+                <h1 class="result-title">
+                    {% if result.prediction == 0 %}
+                    No Cardiovascular Disease Detected
+                    {% else %}
+                    Cardiovascular Risk Indicators Present
+                    {% endif %}
+                </h1>
+
+                <p class="result-description">
+                    {{ result.risk_category.description }}
+                </p>
+            </div>
+
+            <div class="result-gauge">
+                <div class="gauge-container">
+                    <svg viewBox="0 0 200 120" class="gauge-svg">
+                        <defs>
+                            <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color: #10b981" />
+                                <stop offset="50%" style="stop-color: #f59e0b" />
+                                <stop offset="100%" style="stop-color: #ef4444" />
+                            </linearGradient>
+                        </defs>
+                        <path class="gauge-bg" d="M20,100 A80,80 0 0,1 180,100" />
+                        <path class="gauge-fill" d="M20,100 A80,80 0 0,1 180,100"
+                            style="stroke-dasharray: {{ (result.probability * 251)|round }}, 251" />
+                        <circle class="gauge-needle" cx="{{ 20 + (160 * result.probability) }}"
+                            cy="{{ 100 - (80 * (1 - (2 * result.probability - 1) ** 2) ** 0.5) }}" r="6" />
+                    </svg>
+                    <div class="gauge-value">
+                        <span class="gauge-percent">{{ (result.probability * 100)|round(1) }}%</span>
+                        <span class="gauge-label">Risk Score</span>
+                    </div>
+                </div>
+                <div class="gauge-legend">
+                    <span class="legend-item low">Low</span>
+                    <span class="legend-item moderate">Moderate</span>
+                    <span class="legend-item high">High</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value">{{ (result.probability * 100)|round(1) }}%</span>
+                    <span class="stat-label">Risk Probability</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value">{{ result.risk_category.level }}</span>
+                    <span class="stat-label">Risk Category</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value">{{ result.shap_factors|length if result.shap_factors else 0 }}</span>
+                    <span class="stat-label">Key Factors</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value">{{ result.whatif_scenarios|length if result.whatif_scenarios else 0
+                        }}</span>
+                    <span class="stat-label">Improvement Options</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SHAP Factors Section -->
+        {% if result.shap_factors %}
+        <div class="section-card">
+            <div class="section-card-header">
+                <div class="section-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <div>
+                    <h2>Key Risk Drivers</h2>
+                    <p>Factors that most influenced your cardiovascular risk</p>
+
+                </div>
+            </div>
+
+            <div class="factors-container">
+                {% for factor in result.shap_factors %}
+                <div class="factor-item {{ 'increasing' if factor.direction == 'Increases risk' else 'decreasing' }}">
+                    <div class="factor-info">
+                        <span class="factor-name">{{ factor.feature }}</span>
+                        <span class="factor-value">{{ factor.value }}</span>
+                    </div>
+                    <div class="factor-bar-container">
+                        <div class="factor-bar" style="width: {{ (factor.impact|abs * 100)|round }}%"></div>
+                    </div>
+                    <div class="factor-impact">
+                        <i
+                            class="fas fa-{{ 'arrow-up' if factor.direction == 'Increases risk' else 'arrow-down' }}"></i>
+                        <span>{{ factor.direction }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="factor-legend">
+                <div class="legend-item">
+                    <span class="legend-color increasing"></span>
+                    <span>Increases Risk</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color decreasing"></span>
+                    <span>Decreases Risk</span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Human-Readable Explanations -->
+        {% if result.human_explanations %}
+        <div class="section-card">
+            <div class="section-card-header">
+                <div class="section-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div>
+                    <h2>Why am I seeing this result?</h2>
+                    <p>Plain-language explanation of what influenced your risk</p>
+                </div>
+            </div>
+
+            <div class="explanation-list">
+                {% for exp in result.human_explanations %}
+                <div class="explanation-item {{ exp.direction }}">
+                    <div class="explanation-icon">
+                        <i class="fas fa-{{ 'arrow-up' if exp.direction == 'increase' else 'arrow-down' }}"></i>
+                    </div>
+
+                    <div class="explanation-content">
+                        <h4>{{ exp.feature }}</h4>
+                        <p>{{ exp.message }}</p>
+
+                        <span class="explanation-meta">
+                            {{ exp.strength|capitalize }} impact · {{ exp.impact }}%
+                        </span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+
+        <!-- What-If Scenarios -->
+        {% if result.whatif_scenarios %}
+        <div class="section-card">
+            <div class="section-card-header">
+                <div class="section-icon">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <div>
+                    <h2>What-If Scenarios</h2>
+                    <p>See how lifestyle changes could affect your risk</p>
+                </div>
+            </div>
+
+            <div class="whatif-grid">
+                {% for scenario in result.whatif_scenarios %}
+                <div
+                    class="whatif-card {{ 'positive' if scenario.change < 0 else 'negative' if scenario.change > 0 else 'neutral' }}">
+                    <div class="whatif-icon">
+                        <i class="fas fa-{{ scenario.icon }}"></i>
+                    </div>
+                    <h3>{{ scenario.scenario }}</h3>
+                    <div class="whatif-comparison">
+                        <div class="whatif-current">
+                            <span class="label">Current</span>
+                            <span class="value">{{ (result.probability * 100)|round(1) }}%</span>
+                        </div>
+                        <div class="whatif-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="whatif-new">
+                            <span class="label">Potential</span>
+                            <span class="value">{{ (scenario.new_probability * 100)|round(1) }}%</span>
+                        </div>
+                    </div>
+                    <div class="whatif-change {{ 'positive' if scenario.change < 0 else 'negative' }}">
+                        <i class="fas fa-{{ 'arrow-down' if scenario.change < 0 else 'arrow-up' }}"></i>
+                        <span>{{ scenario.change|abs|round(1) }}% {{ 'reduction' if scenario.change < 0 else 'increase'
+                                }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Health Metrics Charts Section -->
+        {% if result.chart_data %}
+        <div class="section-card">
+            <div class="section-card-header">
+                <div class="section-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div>
+                    <h2>Your Health Metrics</h2>
+                    <p>Visual comparison with recommended healthy ranges</p>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <!-- BMI Chart -->
+                <div class="chart-card">
+                    <h4><i class="fas fa-weight"></i> Body Mass Index (BMI)</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="bmiChart"></canvas>
+                    </div>
+                    <div class="chart-info">
+                        <div
+                            class="metric-badge {{ 'success' if result.chart_data.user_bmi < 25 else 'warning' if result.chart_data.user_bmi < 30 else 'danger' }}">
+                            Your BMI: {{ result.chart_data.user_bmi }}
+                        </div>
+                        <p class="chart-note">Normal BMI: 18.5 - 24.9</p>
+                    </div>
+                </div>
+
+                <!-- Blood Pressure Chart -->
+                <div class="chart-card">
+                    <h4><i class="fas fa-heartbeat"></i> Blood Pressure</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="bpChart"></canvas>
+                    </div>
+                    <div class="chart-info">
+                        <div
+                            class="metric-badge {{ 'success' if result.chart_data.user_bp < 120 else 'warning' if result.chart_data.user_bp < 140 else 'danger' }}">
+                            Your BP: {{ result.chart_data.user_bp }} mmHg
+                        </div>
+                        <p class="chart-note">Normal: &lt; 120 mmHg</p>
+                    </div>
+                </div>
+
+                <!-- Pulse Pressure Chart -->
+                <div class="chart-card">
+                    <h4><i class="fas fa-heart-pulse"></i> Pulse Pressure</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="ppChart"></canvas>
+                    </div>
+                    <div class="chart-info">
+                        <div
+                            class="metric-badge {{ 'success' if result.chart_data.user_pp <= 50 else 'warning' if result.chart_data.user_pp <= 60 else 'danger' }}">
+                            Your PP: {{ result.chart_data.user_pp }} mmHg
+                        </div>
+                        <p class="chart-note">Normal: 30 - 50 mmHg</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Clinical Summary -->
+        {% if result.clinical_summary %}
+        <div class="section-card">
+            <div class="section-card-header">
+                <div class="section-icon">
+                    <i class="fas fa-notes-medical"></i>
+                </div>
+                <div>
+                    <h2>Clinical Summary</h2>
+                </div>
+            </div>
+
+            <p class="clinical-summary">
+                {{ result.clinical_summary }}
+            </p>
+        </div>
+        {% endif %}
+
+
+        <!-- Recommendations -->
+        <div class="section-card recommendations">
+            <div class="section-card-header">
+                <div class="section-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <div>
+                    <h2>Recommendations</h2>
+                    <p>Steps you can take to improve your heart health</p>
+                </div>
+            </div>
+
+            <div class="recommendations-grid">
+                <div class="recommendation-item">
+                    <div class="rec-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <div class="rec-content">
+                        <h4>Consult a Healthcare Professional</h4>
+                        <p>This assessment is for informational purposes only. Please consult with a doctor for proper
+                            medical advice and diagnosis.</p>
+                    </div>
+                </div>
+
+                <div class="recommendation-item">
+                    <div class="rec-icon">
+                        <i class="fas fa-heart-pulse"></i>
+                    </div>
+                    <div class="rec-content">
+                        <h4>Monitor Blood Pressure</h4>
+                        <p>Regular blood pressure monitoring helps catch hypertension early. Target: Below 120/80 mmHg.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="recommendation-item">
+                    <div class="rec-icon">
+                        <i class="fas fa-apple-whole"></i>
+                    </div>
+                    <div class="rec-content">
+                        <h4>Maintain Healthy Diet</h4>
+                        <p>Focus on fruits, vegetables, whole grains, and lean proteins. Limit sodium, sugar, and
+                            saturated fats.</p>
+                    </div>
+                </div>
+
+                <div class="recommendation-item">
+                    <div class="rec-icon">
+                        <i class="fas fa-person-walking"></i>
+                    </div>
+                    <div class="rec-content">
+                        <h4>Stay Physically Active</h4>
+                        <p>Aim for at least 150 minutes of moderate aerobic activity or 75 minutes of vigorous activity
+                            per week.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="results-actions">
+            <a href="/assess" class="btn btn-primary btn-lg">
+                <i class="fas fa-redo"></i>
+                <span>Take New Assessment</span>
+            </a>
+            <button onclick="printResults()" class="btn btn-secondary btn-lg">
+                <i class="fas fa-print"></i>
+                <span>Print Report</span>
+            </button>
+            <a href="/insights" class="btn btn-ghost btn-lg">
+                <i class="fas fa-chart-line"></i>
+                <span>Learn About Our Model</span>
+            </a>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer-card">
+            <i class="fas fa-exclamation-circle"></i>
+            <div>
+                <strong>Important Disclaimer</strong>
+                <p>CardioSense provides estimates based on statistical models and should not replace professional
+                    medical advice. Always consult qualified healthcare providers for diagnosis and treatment decisions.
+                </p>
+            </div>
+        </div>
+
+        {% else %}
+        <!-- No Results State -->
+        <div class="no-results">
+            <div class="no-results-icon">
+                <i class="fas fa-clipboard-question"></i>
+            </div>
+            <h2>No Assessment Data Found</h2>
+            <p>It looks like you haven't completed an assessment yet. Start one to get your personalized cardiovascular
+                risk analysis.</p>
+            <a href="/assess" class="btn btn-primary btn-lg">
+                <i class="fas fa-heartbeat"></i>
+                <span>Start Assessment</span>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{% if result and result.chart_data %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get theme colors
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+        const textColor = isDark ? '#cbd5e1' : '#475569';
+
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: isDark ? '#1e293b' : '#ffffff',
+                    titleColor: isDark ? '#f8fafc' : '#0f172a',
+                    bodyColor: isDark ? '#cbd5e1' : '#475569',
+                    borderColor: isDark ? '#334155' : '#e2e8f0',
+                    borderWidth: 1,
+                    cornerRadius: 8,
+                    padding: 12
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: gridColor },
+                    ticks: { color: textColor }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: textColor }
+                }
+            }
+        };
+
+        // BMI Chart
+        const bmiCtx = document.getElementById('bmiChart');
+        if (bmiCtx) {
+            new Chart(bmiCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Your BMI', 'Normal', 'Overweight', 'Obese'],
+                    datasets: [{
+                        data: [{{ result.chart_data.user_bmi }}, 22, 27, 32],
+                    backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444'],
+                    borderRadius: 8,
+                    borderSkipped: false
+                }]
+            },
+                options: chartOptions
+        });
+    }
+
+    // Blood Pressure Chart  
+    const bpCtx = document.getElementById('bpChart');
+    if (bpCtx) {
+        new Chart(bpCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Your BP', 'Normal', 'Elevated', 'High'],
+                datasets: [{
+                    data: [{{ result.chart_data.user_bp }}, 115, 130, 145],
+                backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444'],
+                borderRadius: 8,
+                borderSkipped: false
+            }]
+        },
+            options: chartOptions
+        });
+    }
+
+    // Pulse Pressure Chart
+    const ppCtx = document.getElementById('ppChart');
+    if (ppCtx) {
+        new Chart(ppCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Your PP', 'Normal', 'Borderline', 'High'],
+                datasets: [{
+                    data: [{{ result.chart_data.user_pp }}, 40, 55, 70],
+                backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444'],
+                borderRadius: 8,
+                borderSkipped: false
+            }]
+        },
+            options: chartOptions
+        });
+    }
+});
+
+    // Print function
+    function printResults() {
+        // Update print header with current date
+        const printHeader = document.querySelector('.print-header p');
+        if (printHeader) {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            printHeader.textContent = 'Generated on ' + now.toLocaleDateString('en-US', options);
+        }
+
+        window.print();
+    }
+</script>
+{% endif %}
+
+<!-- Print Footer (only shows when printing) -->
+<div class="print-footer">
+    <p>This report was generated by CardioSense AI - For educational purposes only. Not medical advice.</p>
+    <p>Please consult a qualified healthcare professional for medical decisions.</p>
+</div>
+{% endblock %}

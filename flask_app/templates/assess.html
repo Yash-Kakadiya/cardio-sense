@@ -1,0 +1,565 @@
+{% extends "base.html" %}
+{% block title %}Assessment{% endblock %}
+
+{% block content %}
+<section class="assessment-page">
+    <div class="container">
+        <!-- Assessment Header -->
+        <div class="assessment-header">
+            <a href="/" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Home</span>
+            </a>
+            <div class="header-content">
+                <h1>Heart Health Assessment</h1>
+                <p>Complete all fields below for an accurate cardiovascular risk prediction</p>
+            </div>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-steps">
+                <div class="progress-step active" data-step="1">
+                    <span class="step-dot"></span>
+                    <span class="step-label">Basic Info</span>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <span class="step-dot"></span>
+                    <span class="step-label">Body Metrics</span>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <span class="step-dot"></span>
+                    <span class="step-label">Health Data</span>
+                </div>
+                <div class="progress-step" data-step="4">
+                    <span class="step-dot"></span>
+                    <span class="step-label">Lifestyle</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assessment Form -->
+        <form id="assessmentForm" action="/predict" method="POST" class="assessment-form">
+            <!-- Step 1: Basic Info -->
+            <div class="form-step active" data-step="1">
+                <div class="step-header">
+                    <div class="step-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="step-header-content">
+                        <h2>Basic Information</h2>
+                        <p>Let's start with your age and gender</p>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="age">
+                            <i class="fas fa-calendar"></i>
+                            Age (years)
+                        </label>
+                        <input type="number" id="age" name="age" min="10" max="120" required
+                            placeholder="Enter your age" class="form-input">
+                        <span class="input-hint">Valid range: 10-120 years</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-venus-mars"></i>
+                            Gender
+                        </label>
+                        <div class="toggle-group">
+                            <input type="radio" id="male" name="gender" value="2" required>
+                            <label for="male" class="toggle-option">
+                                <i class="fas fa-mars"></i>
+                                <span>Male</span>
+                            </label>
+
+                            <input type="radio" id="female" name="gender" value="1" required>
+                            <label for="female" class="toggle-option">
+                                <i class="fas fa-venus"></i>
+                                <span>Female</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Body Metrics -->
+            <div class="form-step" data-step="2">
+                <div class="step-header">
+                    <div class="step-icon">
+                        <i class="fas fa-ruler"></i>
+                    </div>
+                    <div class="step-header-content">
+                        <h2>Body Metrics</h2>
+                        <p>Your physical measurements help us calculate BMI</p>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="height">
+                            <i class="fas fa-ruler-vertical"></i>
+                            Height (cm)
+                        </label>
+                        <input type="number" id="height" name="height" min="50" max="250" required
+                            placeholder="e.g., 170" class="form-input">
+                        <span class="input-hint">Valid range: 50-250 cm</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="weight">
+                            <i class="fas fa-weight"></i>
+                            Weight (kg)
+                        </label>
+                        <input type="number" id="weight" name="weight" min="30" max="250" step="0.1" required
+                            placeholder="e.g., 70" class="form-input">
+                        <span class="input-hint">Valid range: 30-250 kg</span>
+                    </div>
+                </div>
+
+                <div class="bmi-calculator">
+                    <div class="bmi-display">
+                        <span class="bmi-label">Your BMI</span>
+                        <span class="bmi-value" id="bmiValue">--</span>
+                        <span class="bmi-category" id="bmiCategory"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Health Data -->
+            <div class="form-step" data-step="3">
+                <div class="step-header">
+                    <div class="step-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="step-header-content">
+                        <h2>Health Data</h2>
+                        <p>Blood pressure and other clinical indicators</p>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="ap_hi">
+                            <i class="fas fa-heart-pulse"></i>
+                            Systolic Blood Pressure (mmHg)
+                        </label>
+                        <input type="number" id="ap_hi" name="ap_hi" min="60" max="250" required placeholder="e.g., 120"
+                            class="form-input">
+                        <span class="input-hint">Upper number (60-250)</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ap_lo">
+                            <i class="fas fa-heart"></i>
+                            Diastolic Blood Pressure (mmHg)
+                        </label>
+                        <input type="number" id="ap_lo" name="ap_lo" min="30" max="180" required placeholder="e.g., 80"
+                            class="form-input">
+                        <span class="input-hint">Lower number (30-180)</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cholesterol">
+                            <i class="fas fa-vial"></i>
+                            Cholesterol Level
+                        </label>
+                        <select id="cholesterol" name="cholesterol" required class="form-select">
+                            <option value="">Select cholesterol level</option>
+                            <option value="1">Normal</option>
+                            <option value="2">Above Normal</option>
+                            <option value="3">Well Above Normal</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gluc">
+                            <i class="fas fa-droplet"></i>
+                            Glucose Level
+                        </label>
+                        <select id="gluc" name="gluc" required class="form-select">
+                            <option value="">Select glucose level</option>
+                            <option value="1">Normal</option>
+                            <option value="2">Above Normal</option>
+                            <option value="3">Well Above Normal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <i class="fas fa-info-circle"></i>
+                    <div>
+                        <strong>Don't know your exact levels?</strong>
+                        <p>If you haven't had recent blood work, select "Normal" as a baseline. For accurate results, we
+                            recommend using values from recent medical tests.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Lifestyle -->
+            <div class="form-step" data-step="4">
+                <div class="step-header">
+                    <div class="step-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <div class="step-header-content">
+                        <h2>Lifestyle Factors</h2>
+                        <p>Your daily habits significantly impact heart health</p>
+                    </div>
+                </div>
+
+                <div class="lifestyle-grid">
+                    <div class="lifestyle-card">
+                        <div class="lifestyle-icon smoke">
+                            <i class="fas fa-smoking"></i>
+                        </div>
+                        <h3>Smoking</h3>
+                        <p>Do you currently smoke?</p>
+                        <div class="toggle-buttons">
+                            <input type="radio" id="smoke_no" name="smoke" value="0" required>
+                            <label for="smoke_no" class="toggle-btn">
+                                <i class="fas fa-times"></i>
+                                No
+                            </label>
+                            <input type="radio" id="smoke_yes" name="smoke" value="1">
+                            <label for="smoke_yes" class="toggle-btn">
+                                <i class="fas fa-check"></i>
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="lifestyle-card">
+                        <div class="lifestyle-icon alcohol">
+                            <i class="fas fa-wine-glass"></i>
+                        </div>
+                        <h3>Alcohol</h3>
+                        <p>Do you consume alcohol regularly?</p>
+                        <div class="toggle-buttons">
+                            <input type="radio" id="alco_no" name="alco" value="0" required>
+                            <label for="alco_no" class="toggle-btn">
+                                <i class="fas fa-times"></i>
+                                No
+                            </label>
+                            <input type="radio" id="alco_yes" name="alco" value="1">
+                            <label for="alco_yes" class="toggle-btn">
+                                <i class="fas fa-check"></i>
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="lifestyle-card">
+                        <div class="lifestyle-icon active">
+                            <i class="fas fa-person-running"></i>
+                        </div>
+                        <h3>Physical Activity</h3>
+                        <p>Do you exercise regularly?</p>
+                        <div class="toggle-buttons">
+                            <input type="radio" id="active_no" name="active" value="0" required>
+                            <label for="active_no" class="toggle-btn">
+                                <i class="fas fa-times"></i>
+                                No
+                            </label>
+                            <input type="radio" id="active_yes" name="active" value="1">
+                            <label for="active_yes" class="toggle-btn">
+                                <i class="fas fa-check"></i>
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card success">
+                    <i class="fas fa-shield-heart"></i>
+                    <div>
+                        <strong>Your data is private</strong>
+                        <p>We don't store any of your health information. All processing happens in real-time and data
+                            is immediately discarded after generating your results.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Navigation -->
+            <div class="form-navigation">
+                <button type="button" class="btn btn-ghost" id="prevBtn" disabled>
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Previous</span>
+                </button>
+
+                <button type="button" class="btn btn-primary" id="nextBtn">
+                    <span>Next</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+
+                <button type="submit" class="btn btn-primary btn-lg" id="submitBtn" style="display: none;">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>Get My Results</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('assessmentForm');
+        const steps = document.querySelectorAll('.form-step');
+        const progressSteps = document.querySelectorAll('.progress-step');
+        const progressFill = document.getElementById('progressFill');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        // Validation messages
+        const validationMessages = {
+            age: { required: 'Please enter your age', range: 'Age must be between 10 and 120 years' },
+            gender: { required: 'Please select your gender' },
+            height: { required: 'Please enter your height', range: 'Height must be between 50 and 250 cm' },
+            weight: { required: 'Please enter your weight', range: 'Weight must be between 50 and 250 kg' },
+            ap_hi: { required: 'Please enter systolic blood pressure', range: 'Systolic BP must be between 60 and 250' },
+            ap_lo: { required: 'Please enter diastolic blood pressure', range: 'Diastolic BP must be between 30 and 180' },
+            cholesterol: { required: 'Please select your cholesterol level' },
+            gluc: { required: 'Please select your glucose level' },
+            smoke: { required: 'Please indicate if you smoke' },
+            alco: { required: 'Please indicate your alcohol consumption' },
+            active: { required: 'Please indicate your activity level' }
+        };
+
+        function showError(input, message) {
+            const group = input.closest('.form-group') || input.closest('.lifestyle-card');
+            if (!group) return;
+
+            // Remove existing error
+            clearError(input);
+
+            // Add error class
+            if (input.classList) input.classList.add('error');
+            group.classList.add('has-error');
+
+            // Create error message
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'validation-error';
+            errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>${message}</span>`;
+
+            // Insert after input or toggle group
+            const target = group.querySelector('.toggle-group, .toggle-buttons, .form-input, .form-select');
+            if (target) target.after(errorDiv);
+        }
+
+        function clearError(input) {
+            const group = input.closest('.form-group') || input.closest('.lifestyle-card');
+            if (!group) return;
+
+            if (input.classList) input.classList.remove('error');
+            group.classList.remove('has-error');
+            group.classList.remove('valid');
+
+            const existingError = group.querySelector('.validation-error');
+            if (existingError) existingError.remove();
+        }
+
+        function markValid(input) {
+            const group = input.closest('.form-group') || input.closest('.lifestyle-card');
+            if (!group) return;
+            clearError(input);
+            group.classList.add('valid');
+        }
+
+        function updateProgress() {
+            const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            progressFill.style.width = progress + '%';
+
+            progressSteps.forEach((step, index) => {
+                if (index + 1 <= currentStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+        }
+
+        function showStep(step) {
+            steps.forEach(s => s.classList.remove('active'));
+            document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+
+            prevBtn.disabled = step === 1;
+
+            if (step === totalSteps) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'flex';
+            } else {
+                nextBtn.style.display = 'flex';
+                submitBtn.style.display = 'none';
+            }
+
+            updateProgress();
+
+            // Scroll to progress container
+            document.querySelector('.progress-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function validateStep(step) {
+            const currentStepEl = document.querySelector(`.form-step[data-step="${step}"]`);
+            const inputs = currentStepEl.querySelectorAll('input[required], select[required]');
+            let valid = true;
+            let firstError = null;
+
+            inputs.forEach(input => {
+                const name = input.name;
+                const messages = validationMessages[name] || { required: 'This field is required' };
+
+                if (input.type === 'radio') {
+                    const radioGroup = currentStepEl.querySelectorAll(`input[name="${input.name}"]`);
+                    const checked = Array.from(radioGroup).some(r => r.checked);
+                    if (!checked) {
+                        valid = false;
+                        if (!firstError) firstError = input;
+                        showError(input, messages.required);
+                    } else {
+                        markValid(input);
+                    }
+                } else if (input.tagName === 'SELECT') {
+                    if (!input.value) {
+                        valid = false;
+                        if (!firstError) firstError = input;
+                        showError(input, messages.required);
+                    } else {
+                        markValid(input);
+                    }
+                } else {
+                    if (!input.value) {
+                        valid = false;
+                        if (!firstError) firstError = input;
+                        showError(input, messages.required);
+                    } else if (input.min && input.max) {
+                        const val = parseFloat(input.value);
+                        if (val < parseFloat(input.min) || val > parseFloat(input.max)) {
+                            valid = false;
+                            if (!firstError) firstError = input;
+                            showError(input, messages.range);
+                        } else {
+                            markValid(input);
+                        }
+                    } else {
+                        markValid(input);
+                    }
+                }
+            });
+
+            // Focus first error
+            if (firstError && firstError.focus) {
+                firstError.focus();
+            }
+
+            return valid;
+        }
+
+        // Real-time validation on input change
+        document.querySelectorAll('.form-input, .form-select').forEach(input => {
+            input.addEventListener('change', function () {
+                const name = this.name;
+                const messages = validationMessages[name] || { required: 'This field is required' };
+
+                if (this.tagName === 'SELECT') {
+                    if (this.value) markValid(this);
+                    else showError(this, messages.required);
+                } else {
+                    if (!this.value) {
+                        showError(this, messages.required);
+                    } else if (this.min && this.max) {
+                        const val = parseFloat(this.value);
+                        if (val < parseFloat(this.min) || val > parseFloat(this.max)) {
+                            showError(this, messages.range);
+                        } else {
+                            markValid(this);
+                        }
+                    } else {
+                        markValid(this);
+                    }
+                }
+            });
+
+            input.addEventListener('input', function () {
+                if (this.classList.contains('error')) {
+                    clearError(this);
+                }
+            });
+        });
+
+        // Radio button validation
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function () {
+                markValid(this);
+            });
+        });
+
+        nextBtn.addEventListener('click', function () {
+            if (validateStep(currentStep) && currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        });
+
+        prevBtn.addEventListener('click', function () {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+
+        // BMI Calculator
+        const heightInput = document.getElementById('height');
+        const weightInput = document.getElementById('weight');
+        const bmiValue = document.getElementById('bmiValue');
+        const bmiCategory = document.getElementById('bmiCategory');
+
+        function calculateBMI() {
+            const height = parseFloat(heightInput.value) / 100;
+            const weight = parseFloat(weightInput.value);
+
+            if (height > 0 && weight > 0) {
+                const bmi = (weight / (height * height)).toFixed(1);
+                bmiValue.textContent = bmi;
+
+                let category = '';
+                let categoryClass = '';
+
+                if (bmi < 18.5) {
+                    category = 'Underweight';
+                    categoryClass = 'warning';
+                } else if (bmi < 25) {
+                    category = 'Normal';
+                    categoryClass = 'success';
+                } else if (bmi < 30) {
+                    category = 'Overweight';
+                    categoryClass = 'warning';
+                } else {
+                    category = 'Obese';
+                    categoryClass = 'danger';
+                }
+
+                bmiCategory.textContent = category;
+                bmiCategory.className = 'bmi-category ' + categoryClass;
+            }
+        }
+
+        heightInput.addEventListener('input', calculateBMI);
+        weightInput.addEventListener('input', calculateBMI);
+
+        // Form validation before submit
+        form.addEventListener('submit', function (e) {
+            if (!validateStep(currentStep)) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+{% endblock %}

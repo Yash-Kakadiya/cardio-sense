@@ -1,0 +1,811 @@
+{% extends "base.html" %}
+{% block title %}Insights{% endblock %}
+
+{% block content %}
+<section class="insights-page">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <span class="page-badge">Model Transparency</span>
+            <h1>How CardioSense Works</h1>
+            <p>Understanding the science and technology behind your cardiovascular risk assessment</p>
+        </div>
+
+        <!-- Model Overview -->
+        <div class="insight-section">
+            <div class="insight-header">
+                <div class="insight-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div>
+                    <h2>The Ensemble Model</h2>
+                    <p>Four powerful algorithms working together</p>
+                </div>
+            </div>
+
+            <div class="model-cards">
+                <div class="model-card">
+                    <div class="model-icon rf">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <h3>Random Forest</h3>
+                    <p>Creates multiple decision trees and combines their predictions for robust results.</p>
+                    <div class="model-tag">Tree-based</div>
+                </div>
+
+                <div class="model-card">
+                    <div class="model-icon xgb">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>XGBoost</h3>
+                    <p>Gradient boosting algorithm that sequentially improves predictions.</p>
+                    <div class="model-tag">Boosting</div>
+                </div>
+
+                <div class="model-card">
+                    <div class="model-icon gb">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3>Gradient Boosting</h3>
+                    <p>Builds models iteratively, each correcting errors from the previous.</p>
+                    <div class="model-tag">Boosting</div>
+                </div>
+
+                <div class="model-card">
+                    <div class="model-icon lr">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Logistic Regression</h3>
+                    <p>Statistical model providing probability estimates with interpretability.</p>
+                    <div class="model-tag">Linear</div>
+                </div>
+            </div>
+
+            <div class="ensemble-explanation">
+                <div class="ensemble-visual">
+                    <div class="ensemble-input">
+                        <i class="fas fa-user"></i>
+                        <span>Your Data</span>
+                    </div>
+                    <div class="ensemble-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="ensemble-models">
+                        <span>RF</span>
+                        <span>XGB</span>
+                        <span>GB</span>
+                        <span>LR</span>
+                    </div>
+                    <div class="ensemble-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="ensemble-output">
+                        <i class="fas fa-poll"></i>
+                        <span>Soft Voting</span>
+                    </div>
+                    <div class="ensemble-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="ensemble-result">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Final Prediction</span>
+                    </div>
+                </div>
+                <p>The VotingClassifier combines predictions from all four models using <strong>soft voting</strong>,
+                    averaging probability estimates to produce a more accurate and stable final prediction.</p>
+            </div>
+        </div>
+
+        <!-- Performance Metrics -->
+        <div class="insight-section">
+            <div class="insight-header">
+                <div class="insight-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div>
+                    <h2>Model Performance</h2>
+                    <p>Evaluation metrics from our test dataset (12,500+ samples)</p>
+                </div>
+            </div>
+
+            <div class="metrics-dashboard">
+                <div class="metric-card primary">
+                    <div class="metric-circle">
+                        <svg viewBox="0 0 100 100">
+                            <circle class="metric-bg" cx="50" cy="50" r="45" />
+                            <circle class="metric-fill" cx="50" cy="50" r="45"
+                                style="stroke-dasharray: {{ (metrics.accuracy|default(73)) * 2.83 }}, 283" />
+                        </svg>
+                        <span class="metric-value">{{ metrics.accuracy|default(73) }}%</span>
+                    </div>
+                    <h3>Accuracy</h3>
+                    <p>Overall prediction accuracy</p>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-circle">
+                        <svg viewBox="0 0 100 100">
+                            <circle class="metric-bg" cx="50" cy="50" r="45" />
+                            <circle class="metric-fill" cx="50" cy="50" r="45"
+                                style="stroke-dasharray: {{ (metrics.precision|default(72)) * 2.83 }}, 283" />
+                        </svg>
+                        <span class="metric-value">{{ metrics.precision|default(72) }}%</span>
+                    </div>
+                    <h3>Precision</h3>
+                    <p>True positive accuracy</p>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-circle">
+                        <svg viewBox="0 0 100 100">
+                            <circle class="metric-bg" cx="50" cy="50" r="45" />
+                            <circle class="metric-fill" cx="50" cy="50" r="45"
+                                style="stroke-dasharray: {{ (metrics.recall|default(74)) * 2.83 }}, 283" />
+                        </svg>
+                        <span class="metric-value">{{ metrics.recall|default(74) }}%</span>
+                    </div>
+                    <h3>Recall</h3>
+                    <p>True positive detection rate</p>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-circle">
+                        <svg viewBox="0 0 100 100">
+                            <circle class="metric-bg" cx="50" cy="50" r="45" />
+                            <circle class="metric-fill" cx="50" cy="50" r="45"
+                                style="stroke-dasharray: {{ (metrics.f1|default(73)) * 2.83 }}, 283" />
+                        </svg>
+                        <span class="metric-value">{{ metrics.f1|default(73) }}%</span>
+                    </div>
+                    <h3>F1 Score</h3>
+                    <p>Balance of precision & recall</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        {% if metrics and metrics.cm %}
+        <div class="insight-section">
+            <div class="insight-header">
+                <div class="insight-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div>
+                    <h2>Model Diagnostics</h2>
+                    <p>Detailed performance visualizations</p>
+                </div>
+            </div>
+
+            <div class="charts-row">
+                <!-- Feature Importance Chart -->
+                <div class="chart-card wide">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-trophy"></i> Top 10 Risk Factors</h3>
+                        <p>Features ranked by importance in prediction</p>
+                    </div>
+                    <div class="chart-container" style="height: 350px;">
+                        <canvas id="featChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Confusion Matrix -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-th"></i> Confusion Matrix</h3>
+                        <p>Prediction vs Actual outcomes</p>
+                    </div>
+                    <div class="confusion-matrix">
+                        <div class="matrix-header">
+                            <span></span>
+                            <span>Pred: Low Risk</span>
+                            <span>Pred: High Risk</span>
+                        </div>
+                        <div class="matrix-row">
+                            <span class="row-label">Actual: Low</span>
+                            <span class="matrix-cell tn">
+                                <strong>{{ metrics.cm[0][0] }}</strong>
+                                <small>True Negative</small>
+                            </span>
+                            <span class="matrix-cell fp">
+                                <strong>{{ metrics.cm[0][1] }}</strong>
+                                <small>False Positive</small>
+                            </span>
+                        </div>
+                        <div class="matrix-row">
+                            <span class="row-label">Actual: High</span>
+                            <span class="matrix-cell fn">
+                                <strong>{{ metrics.cm[1][0] }}</strong>
+                                <small>False Negative</small>
+                            </span>
+                            <span class="matrix-cell tp">
+                                <strong>{{ metrics.cm[1][1] }}</strong>
+                                <small>True Positive</small>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-row">
+                <!-- ROC Curve -->
+                <div class="chart-card wide">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-area"></i> ROC Curve</h3>
+                        <p>Receiver Operating Characteristic - Model Discrimination</p>
+                    </div>
+                    <div class="chart-container" style="height: 400px;">
+                        <canvas id="rocChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Confidence Distribution -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-bar"></i> Confidence Distribution</h3>
+                        <p>Prediction probability spread</p>
+                    </div>
+                    <div class="chart-container" style="height: 300px;">
+                        <canvas id="confChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-row">
+                <!-- Class Distribution -->
+                <div class="chart-card small">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-pie-chart"></i> Class Distribution</h3>
+                        <p>Test dataset balance</p>
+                    </div>
+                    <div class="chart-container" style="height: 250px;">
+                        <canvas id="classChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Metrics Comparison Radar Chart -->
+                <div class="chart-card small">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-crosshairs"></i> Model Performance Radar</h3>
+                        <p>Key metrics comparison</p>
+                    </div>
+                    <div class="chart-container" style="height: 250px;">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Dataset Info -->
+        <div class="insight-section">
+            <div class="insight-header">
+                <div class="insight-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div>
+                    <h2>Training Data</h2>
+                    <p>The foundation of our model</p>
+                </div>
+            </div>
+
+            <div class="dataset-info">
+                <div class="dataset-stats">
+                    <div class="dataset-stat">
+                        <span class="stat-number">70,000</span>
+                        <span class="stat-label">Patient Records</span>
+                    </div>
+                    <div class="dataset-stat">
+                        <span class="stat-number">12</span>
+                        <span class="stat-label">Features Analyzed</span>
+                    </div>
+                    <div class="dataset-stat">
+                        <span class="stat-number">80/20</span>
+                        <span class="stat-label">Train/Test Split</span>
+                    </div>
+                </div>
+
+                <div class="dataset-source">
+                    <i class="fab fa-kaggle"></i>
+                    <div>
+                        <h4>Dataset Source</h4>
+                        <p>Cardiovascular Disease Dataset from Kaggle, containing patient examination data from medical
+                            records.</p>
+                        <a href="https://www.kaggle.com/datasets/sulianova/cardiovascular-disease-dataset"
+                            target="_blank" class="dataset-link">
+                            View on Kaggle <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SHAP Explainability -->
+        <div class="insight-section">
+            <div class="insight-header">
+                <div class="insight-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <div>
+                    <h2>Explainable AI with SHAP</h2>
+                    <p>Understanding why the model makes specific predictions</p>
+                </div>
+            </div>
+
+            <div class="shap-explanation">
+                <div class="shap-content">
+                    <h3>What is SHAP?</h3>
+                    <p><strong>SHAP (SHapley Additive exPlanations)</strong> is a game-theoretic approach to explain
+                        machine learning predictions. It calculates the contribution of each feature to the final
+                        prediction.</p>
+
+                    <div class="shap-benefits">
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Shows which factors increase or decrease risk</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Provides individual explanations for each prediction</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Mathematically consistent and fair attribution</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="shap-visual">
+                    <div class="shap-example">
+                        <h4>Example: Feature Contributions</h4>
+                        <div class="shap-bar positive">
+                            <span class="shap-feature">High Blood Pressure</span>
+                            <div class="shap-bar-fill" style="width: 80%"></div>
+                            <span class="shap-direction">↑ Risk</span>
+                        </div>
+                        <div class="shap-bar negative">
+                            <span class="shap-feature">Regular Exercise</span>
+                            <div class="shap-bar-fill" style="width: 60%"></div>
+                            <span class="shap-direction">↓ Risk</span>
+                        </div>
+                        <div class="shap-bar positive">
+                            <span class="shap-feature">Elevated Cholesterol</span>
+                            <div class="shap-bar-fill" style="width: 50%"></div>
+                            <span class="shap-direction">↑ Risk</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Health Education -->
+        <div class="insight-section education">
+            <div class="insight-header">
+                <div class="insight-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h2>Cardiovascular Health 101</h2>
+                    <p>Understanding the factors that affect your heart</p>
+                </div>
+            </div>
+
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="edu-icon">
+                        <i class="fas fa-heart-pulse"></i>
+                    </div>
+                    <h3>Blood Pressure</h3>
+                    <p>High blood pressure (hypertension) makes your heart work harder and damages artery walls over
+                        time.</p>
+                    <div class="edu-ranges">
+                        <span class="range good">Normal: &lt;120/80</span>
+                        <span class="range warning">Elevated: 120-129/80</span>
+                        <span class="range danger">High: ≥130/80</span>
+                    </div>
+                </div>
+
+                <div class="education-card">
+                    <div class="edu-icon">
+                        <i class="fas fa-vial"></i>
+                    </div>
+                    <h3>Cholesterol</h3>
+                    <p>High cholesterol leads to plaque buildup in arteries, restricting blood flow and increasing heart
+                        attack risk.</p>
+                    <div class="edu-fact">
+                        <strong>LDL ("bad") cholesterol</strong> should be below 100 mg/dL for optimal heart health.
+                    </div>
+                </div>
+
+                <div class="education-card">
+                    <div class="edu-icon">
+                        <i class="fas fa-weight-scale"></i>
+                    </div>
+                    <h3>BMI & Weight</h3>
+                    <p>Excess weight increases strain on your heart and is linked to higher blood pressure and
+                        cholesterol.</p>
+                    <div class="edu-ranges">
+                        <span class="range good">Normal: 18.5-24.9</span>
+                        <span class="range warning">Overweight: 25-29.9</span>
+                        <span class="range danger">Obese: ≥30</span>
+                    </div>
+                </div>
+
+                <div class="education-card">
+                    <div class="edu-icon">
+                        <i class="fas fa-smoking"></i>
+                    </div>
+                    <h3>Smoking</h3>
+                    <p>Smoking damages blood vessels, reduces oxygen in blood, and significantly increases
+                        cardiovascular disease risk.</p>
+                    <div class="edu-fact">
+                        <strong>Within 1 year</strong> of quitting, your heart disease risk drops to half that of a
+                        smoker.
+                    </div>
+                </div>
+
+                <div class="education-card">
+                    <div class="edu-icon">
+                        <i class="fas fa-person-running"></i>
+                    </div>
+                    <h3>Physical Activity</h3>
+                    <p>Regular exercise strengthens the heart, improves circulation, and helps maintain healthy weight
+                        and blood pressure.</p>
+                    <div class="edu-fact">
+                        <strong>150 minutes/week</strong> of moderate activity can reduce heart disease risk by up to
+                        30%.
+                    </div>
+                </div>
+
+                <div class="education-card">
+                    <div class="edu-icon">
+                        <i class="fas fa-droplet"></i>
+                    </div>
+                    <h3>Blood Glucose</h3>
+                    <p>High blood sugar damages blood vessels and nerves that control the heart, increasing
+                        cardiovascular risk.</p>
+                    <div class="edu-ranges">
+                        <span class="range good">Normal: &lt;100 mg/dL</span>
+                        <span class="range warning">Pre-diabetic: 100-125</span>
+                        <span class="range danger">Diabetic: ≥126</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="insight-cta">
+            <h2>Ready to Check Your Heart Health?</h2>
+            <p>Get your personalized risk assessment in under 2 minutes</p>
+            <a href="/assess" class="btn btn-primary btn-lg">
+                <i class="fas fa-heartbeat"></i>
+                <span>Start Assessment</span>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{% if metrics and metrics.cm %}
+<!-- Embedded Chart Data -->
+<script id="chartData" type="application/json">
+{
+    "featNames": {{ metrics.feat_names | tojson | safe }},
+    "featScores": {{ metrics.feat_scores | tojson | safe }},
+    "rocFpr": {{ metrics.roc_fpr | tojson | safe }},
+    "rocTpr": {{ metrics.roc_tpr | tojson | safe }},
+    "confHist": {{ metrics.conf_hist | tojson | safe }},
+    "classDist": {{ metrics.class_dist | tojson | safe }},
+    "accuracy": {{ metrics.accuracy | default(73) }},
+    "precision": {{ metrics.precision | default(72) }},
+    "recall": {{ metrics.recall | default(74) }},
+    "f1": {{ metrics.f1 | default(73) }}
+}
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Load chart data
+        const chartDataElement = document.getElementById('chartData');
+        const chartData = JSON.parse(chartDataElement.textContent);
+
+        // Theme detection
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)';
+        const textColor = isDark ? '#cbd5e1' : '#475569';
+
+        // Color palette for varied charts
+        const colors = {
+            primary: '#3b82f6',    // Blue
+            success: '#10b981',   // Green
+            warning: '#f59e0b',   // Orange
+            danger: '#ef4444',    // Red
+            purple: '#8b5cf6',    // Purple
+            pink: '#ec4899',      // Pink
+            cyan: '#06b6d4',      // Cyan
+            indigo: '#6366f1'     // Indigo
+        };
+        const primaryColorLight = 'rgba(59, 130, 246, 0.2)';
+        const purpleColorLight = 'rgba(139, 92, 246, 0.2)';
+
+        // Chart.js defaults
+        Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+        Chart.defaults.font.size = 12;
+        Chart.defaults.color = textColor;
+
+        // === 1. Feature Importance Chart (Gradient colors) ===
+        const featCtx = document.getElementById('featChart');
+        if (featCtx && chartData.featNames && chartData.featScores) {
+            // Create gradient colors for each bar
+            const featureColors = chartData.featNames.map((_, i) => {
+                const colorList = [colors.indigo, colors.purple, colors.primary, colors.cyan, colors.success, colors.pink, colors.warning, colors.danger];
+                return colorList[i % colorList.length];
+            });
+
+            new Chart(featCtx, {
+                type: 'bar',
+                data: {
+                    labels: chartData.featNames,
+                    datasets: [{
+                        label: 'Importance Score',
+                        data: chartData.featScores,
+                        backgroundColor: featureColors,
+                        borderColor: featureColors,
+                        borderWidth: 0,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: isDark ? '#1e293b' : '#ffffff',
+                            titleColor: isDark ? '#f8fafc' : '#0f172a',
+                            bodyColor: textColor,
+                            borderColor: isDark ? '#334155' : '#e2e8f0',
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            padding: 12,
+                            callbacks: {
+                                label: ctx => 'Importance: ' + ctx.parsed.x.toFixed(4)
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: { color: gridColor },
+                            ticks: { color: textColor }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { color: textColor, font: { weight: '600' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // === 2. ROC Curve ===
+        const rocCtx = document.getElementById('rocChart');
+        if (rocCtx && chartData.rocFpr && chartData.rocTpr) {
+            const rocPoints = chartData.rocFpr.map((x, i) => ({ x: x, y: chartData.rocTpr[i] }));
+            const diagPoints = chartData.rocFpr.map(x => ({ x: x, y: x }));
+
+            new Chart(rocCtx, {
+                type: 'line',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Model Performance (AUC ≈ 0.79)',
+                            data: rocPoints,
+                            borderColor: colors.success,
+                            backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                            fill: true,
+                            tension: 0.4,
+                            borderWidth: 3,
+                            pointRadius: 0,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'Random Guess (AUC = 0.5)',
+                            data: diagPoints,
+                            borderColor: isDark ? '#475569' : '#94a3b8',
+                            borderDash: [8, 4],
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { usePointStyle: true, padding: 20, color: textColor }
+                        },
+                        tooltip: {
+                            backgroundColor: isDark ? '#1e293b' : '#ffffff',
+                            titleColor: isDark ? '#f8fafc' : '#0f172a',
+                            bodyColor: textColor,
+                            borderColor: isDark ? '#334155' : '#e2e8f0',
+                            borderWidth: 1,
+                            cornerRadius: 8
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            title: { display: true, text: 'False Positive Rate', color: textColor },
+                            min: 0, max: 1,
+                            grid: { color: gridColor },
+                            ticks: { color: textColor }
+                        },
+                        y: {
+                            type: 'linear',
+                            title: { display: true, text: 'True Positive Rate', color: textColor },
+                            min: 0, max: 1,
+                            grid: { color: gridColor },
+                            ticks: { color: textColor }
+                        }
+                    }
+                }
+            });
+        }
+
+        // === 3. Confidence Distribution (Purple gradient) ===
+        const confCtx = document.getElementById('confChart');
+        if (confCtx && chartData.confHist) {
+            // Create gradient from cyan to purple
+            const confColors = chartData.confHist.map((_, i) => {
+                const gradient = [colors.cyan, colors.cyan, colors.primary, colors.primary, colors.purple, colors.purple, colors.pink, colors.pink, colors.danger, colors.danger];
+                return gradient[i];
+            });
+
+            new Chart(confCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['0-10%', '10-20%', '20-30%', '30-40%', '40-50%', '50-60%', '60-70%', '70-80%', '80-90%', '90-100%'],
+                    datasets: [{
+                        label: 'Frequency',
+                        data: chartData.confHist,
+                        backgroundColor: confColors,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: isDark ? '#1e293b' : '#ffffff',
+                            titleColor: isDark ? '#f8fafc' : '#0f172a',
+                            bodyColor: textColor,
+                            borderColor: isDark ? '#334155' : '#e2e8f0',
+                            borderWidth: 1,
+                            cornerRadius: 8
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: textColor, maxRotation: 45, minRotation: 45, font: { size: 10 } }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: gridColor },
+                            ticks: { color: textColor }
+                        }
+                    }
+                }
+            });
+        }
+
+        // === 4. Class Distribution ===
+        const classCtx = document.getElementById('classChart');
+        if (classCtx && chartData.classDist) {
+            new Chart(classCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Low Risk', 'High Risk'],
+                    datasets: [{
+                        data: chartData.classDist,
+                        backgroundColor: [colors.success, colors.danger],
+                        borderColor: isDark ? '#0f172a' : '#ffffff',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { usePointStyle: true, padding: 15, color: textColor }
+                        },
+                        tooltip: {
+                            backgroundColor: isDark ? '#1e293b' : '#ffffff',
+                            titleColor: isDark ? '#f8fafc' : '#0f172a',
+                            bodyColor: textColor,
+                            borderColor: isDark ? '#334155' : '#e2e8f0',
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function (ctx) {
+                                    const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                                    const pct = ((ctx.parsed / total) * 100).toFixed(1);
+                                    return `${ctx.label}: ${ctx.parsed.toLocaleString()} (${pct}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // === 5. Performance Radar Chart ===
+        const radarCtx = document.getElementById('radarChart');
+        if (radarCtx && chartData.accuracy) {
+            new Chart(radarCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Accuracy', 'Precision', 'Recall', 'F1 Score'],
+                    datasets: [{
+                        label: 'Model Performance',
+                        data: [chartData.accuracy, chartData.precision, chartData.recall, chartData.f1],
+                        backgroundColor: 'rgba(139, 92, 246, 0.2)',
+                        borderColor: colors.purple,
+                        borderWidth: 2,
+                        pointBackgroundColor: colors.purple,
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: colors.purple
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: isDark ? '#1e293b' : '#ffffff',
+                            titleColor: isDark ? '#f8fafc' : '#0f172a',
+                            bodyColor: textColor,
+                            borderColor: isDark ? '#334155' : '#e2e8f0',
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: ctx => ctx.dataset.label + ': ' + ctx.raw.toFixed(1) + '%'
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { color: gridColor },
+                            grid: { color: gridColor },
+                            pointLabels: {
+                                color: textColor,
+                                font: { size: 11, weight: '600' }
+                            },
+                            ticks: {
+                                color: textColor,
+                                backdropColor: 'transparent',
+                                stepSize: 20
+                            },
+                            suggestedMin: 50,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endif %}
+{% endblock %}
