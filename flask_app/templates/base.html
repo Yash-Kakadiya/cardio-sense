@@ -119,8 +119,11 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2026 CardioSense. Built with 💖 by <a href="https://linkedin.com/in/yash-kakadiya-"
-                        target="_blank">¥@$# Kakadiya</a></p>
+                <p>&copy; 2026 CardioSense.
+                    <br />
+                    Built with 💖 by <a href="https://linkedin.com/in/yash-kakadiya-" target="_blank">¥@$#
+                        Kakadiya</a>
+                </p>
                 <p>For educational purposes only. Not medical advice.</p>
             </div>
         </div>
@@ -133,29 +136,70 @@
     <script>
         (function () {
             const particlesContainer = document.getElementById('particles');
-            const heartEmojis = ['💝', '💖', '💗', '💓', '💞', '💕', '❣️', '❤️‍🩹', '❤️', '🩷', '🧡', '💛', '💚', '💙', '🩵', '💜', '🤎', '🖤', '🩶', '🤍', '🫀'];
-            const particleCount = 50;
+            // Curated list: removed black/brown hearts to keep the medical/clean aesthetic
+            // Added anatomical heart and sparkles for variety
+            const heartEmojis = ['💝', '💖', '💗', '💓', '💞', '💕', '❣️', '❤️‍🩹', '❤️', '🩷', '🧡', '💛', '💚', '💙', '🩵', '💜', '🤎', '🖤', '🩶', '🤍', '🫀', '✨', '⚕️'];
 
-            for (let i = 0; i < particleCount; i++) {
+            // Configuration
+            const particleCount = 40; // Balanced number to prevent lag
+
+            function createParticle() {
                 const particle = document.createElement('div');
-                particle.className = 'particle';
 
-                // Random heart emoji
+                // Randomly select emoji
                 particle.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
 
-                // Random properties - more variety
-                const size = Math.random() * 14 + 10; // 10-24px
-                const left = Math.random() * 100;
-                const delay = Math.random() * 10;
-                const duration = Math.random() * 12 + 15; // 15-27s (faster)
+                // Determine Layer (Depth)
+                const layerRandom = Math.random();
+                let layerClass = 'layer-mid';
+                let baseSize = 20;
+                let durationBase = 15;
 
-                particle.style.fontSize = size + 'px';
+                if (layerRandom < 0.3) {
+                    layerClass = 'layer-back'; // 30% background
+                    baseSize = 10 + Math.random() * 10;
+                    durationBase = 25; // Slower
+                } else if (layerRandom > 0.8) {
+                    layerClass = 'layer-front'; // 20% foreground
+                    baseSize = 30 + Math.random() * 15;
+                    durationBase = 10; // Faster
+                } else {
+                    // 50% middle
+                    baseSize = 15 + Math.random() * 15;
+                }
+
+                particle.className = `particle ${layerClass}`;
+
+                // Random Physics Variables
+                const left = Math.random() * 100;
+                const delay = Math.random() * -20; // Start immediately at random intervals
+                const duration = durationBase + (Math.random() * 5);
+                const rotation = Math.floor(Math.random() * 360) + 'deg';
+                const opacity = Math.random() * 0.5 + 0.3;
+
+                // Set CSS Variables for the specific particle
                 particle.style.left = left + '%';
-                particle.style.animationDelay = delay + 's';
-                particle.style.animationDuration = duration + 's';
-                particle.style.opacity = Math.random() * 0.3 + 0.2; // 0.2-0.5
+                particle.style.fontSize = baseSize + 'px';
+                particle.style.setProperty('--p-rotation', rotation);
+                particle.style.setProperty('--p-scale', 1 + (Math.random() * 0.4));
+                particle.style.setProperty('--p-opacity', opacity);
+
+                // Apply Animations
+                // combine vertical float with horizontal sway
+                particle.style.animation = `
+                    float-up ${duration}s linear infinite,
+                    sway ${duration * 1.5}s ease-in-out infinite alternate
+                `;
+
+                // Offset animation start
+                particle.style.animationDelay = `${delay}s`;
 
                 particlesContainer.appendChild(particle);
+            }
+
+            // Initialize
+            for (let i = 0; i < particleCount; i++) {
+                createParticle();
             }
         })();
     </script>
