@@ -75,7 +75,7 @@
                             <input type="radio" id="male" name="gender" value="2" required>
                             <label for="male" class="toggle-option">
                                 <i class="fas fa-mars"></i>
-                                <span>Male</span>
+                                <span>Male </span>
                             </label>
 
                             <input type="radio" id="female" name="gender" value="1" required>
@@ -171,9 +171,9 @@
                         </label>
                         <select id="cholesterol" name="cholesterol" required class="form-select">
                             <option value="">Select cholesterol level</option>
-                            <option value="1">Normal</option>
-                            <option value="2">Above Normal</option>
-                            <option value="3">Well Above Normal</option>
+                            <option value="1">Normal 😀</option>
+                            <option value="2">Above Normal 😟</option>
+                            <option value="3">Well Above Normal 😞</option>
                         </select>
                     </div>
 
@@ -184,9 +184,9 @@
                         </label>
                         <select id="gluc" name="gluc" required class="form-select">
                             <option value="">Select glucose level</option>
-                            <option value="1">Normal</option>
-                            <option value="2">Above Normal</option>
-                            <option value="3">Well Above Normal</option>
+                            <option value="1">Normal 😀</option>
+                            <option value="2">Above Normal 😟</option>
+                            <option value="3">Well Above Normal 😞</option>
                         </select>
                     </div>
                 </div>
@@ -533,16 +533,16 @@
                 let categoryClass = '';
 
                 if (bmi < 18.5) {
-                    category = 'Underweight';
+                    category = 'Underweight 🥲';
                     categoryClass = 'warning';
                 } else if (bmi < 25) {
-                    category = 'Normal';
+                    category = 'Normal 😀';
                     categoryClass = 'success';
                 } else if (bmi < 30) {
-                    category = 'Overweight';
+                    category = 'Overweight 😟';
                     categoryClass = 'warning';
                 } else {
-                    category = 'Obese';
+                    category = 'Obese 😞';
                     categoryClass = 'danger';
                 }
 

@@ -10,23 +10,28 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ==================== THEME TOGGLE ==================== */
 function initTheme() {
     const themeToggle = document.getElementById('themeToggle');
-    const savedTheme = localStorage.getItem('cardiosense-theme') || 'light';
-
-    document.documentElement.setAttribute('data-theme', savedTheme);
+    // Theme is already set by inline script in <head>, just get current value
+    const savedTheme = document.documentElement.getAttribute('data-theme') || 'light';
 
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
 
+            // Temporarily disable all transitions for instant theme change
+            document.body.classList.add('theme-switching');
+
+            // Change theme
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('cardiosense-theme', newTheme);
 
-            // Add animation class
-            document.body.classList.add('theme-transitioning');
+            // Force reflow to ensure theme is applied
+            void document.body.offsetHeight;
+
+            // Remove transition-disabling class after a brief moment
             setTimeout(() => {
-                document.body.classList.remove('theme-transitioning');
-            }, 300);
+                document.body.classList.remove('theme-switching');
+            }, 50);
         });
     }
 }
@@ -126,10 +131,6 @@ style.textContent = `
     .animate-in {
         opacity: 1 !important;
         transform: translateY(0) !important;
-    }
-    
-    .theme-transitioning * {
-        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
     }
 `;
 document.head.appendChild(style);

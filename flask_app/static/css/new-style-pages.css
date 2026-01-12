@@ -141,6 +141,7 @@
     border-radius: var(--radius-lg);
     flex-shrink: 0;
     box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.3);
+    margin: 0;
 }
 
 .step-header-content {
@@ -1333,4 +1334,703 @@
     line-height: 1.6;
     color: var(--text-primary);
     margin: 0;
+}
+
+/* ==================== COMPREHENSIVE RESPONSIVE DESIGN ==================== */
+
+/* Large Desktop: 1400px+ */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+}
+
+/* Desktop: 1200px - 1399px */
+@media (max-width: 1399px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+/* Laptop: 992px - 1199px */
+@media (max-width: 1199px) {
+    .container {
+        max-width: 960px;
+    }
+
+    .form-grid {
+        gap: var(--space-lg);
+    }
+
+    .charts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .whatif-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Tablet: 768px - 991px */
+@media (max-width: 991px) {
+    .container {
+        max-width: 720px;
+        padding: 0 var(--space-lg);
+    }
+
+    /* Assessment Page */
+    .assessment-page,
+    .results-page {
+        padding: calc(70px + var(--space-xl)) 0 var(--space-2xl);
+    }
+
+    .step-header {
+        padding: var(--space-lg);
+    }
+
+    .step-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.25rem;
+    }
+
+    .step-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .lifestyle-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .lifestyle-card {
+        padding: var(--space-lg);
+    }
+
+    /* Results Page */
+    .result-hero {
+        grid-template-columns: 1fr;
+        padding: var(--space-xl);
+        text-align: center;
+        gap: var(--space-xl);
+    }
+
+    .result-gauge {
+        order: -1;
+    }
+
+    .quick-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-md);
+    }
+
+    .section-card {
+        padding: var(--space-xl);
+    }
+
+    .section-card-header {
+        gap: var(--space-md);
+    }
+
+    .section-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+
+    .factor-item {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+        text-align: center;
+    }
+
+    .factor-bar-container {
+        order: 2;
+    }
+
+    .factor-impact {
+        justify-content: center;
+    }
+
+    .recommendations-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .whatif-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Mobile Large: 576px - 767px */
+@media (max-width: 767px) {
+    .container {
+        max-width: 540px;
+        padding: 0 var(--space-md);
+    }
+
+    /* Assessment Page */
+    .assessment-page,
+    .results-page {
+        padding: calc(60px + var(--space-lg)) 0 var(--space-xl);
+    }
+
+    .assessment-header,
+    .results-header {
+        margin-bottom: var(--space-xl);
+    }
+
+    .back-link {
+        font-size: 0.85rem;
+        margin-bottom: var(--space-md);
+    }
+
+    .header-content h1,
+    .result-title {
+        font-size: 1.75rem;
+    }
+
+    .header-content p,
+    .result-description {
+        font-size: 1rem;
+    }
+
+    /* Progress Bar */
+    .progress-steps {
+        gap: var(--space-xs);
+    }
+
+    .step-dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    .step-label {
+        font-size: 0.7rem;
+        display: none;
+    }
+
+    .progress-step.active .step-label {
+        display: block;
+    }
+
+    /* Form Steps */
+    .step-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: var(--space-lg);
+        gap: var(--space-md);
+    }
+
+    .step-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.1rem;
+    }
+
+    .step-header h2 {
+        font-size: 1.1rem;
+    }
+
+    .step-header p {
+        font-size: 0.85rem;
+    }
+
+    .form-input,
+    .form-select {
+        padding: var(--space-sm) var(--space-md);
+        font-size: 0.95rem;
+    }
+
+    .form-group label {
+        font-size: 0.85rem;
+    }
+
+    .bmi-calculator {
+        padding: var(--space-lg);
+    }
+
+    .bmi-value {
+        font-size: 2.5rem;
+    }
+
+    .lifestyle-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 1.25rem;
+    }
+
+    .toggle-group {
+        flex-direction: column;
+    }
+
+    .form-navigation {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+
+    .form-navigation .btn {
+        width: 100%;
+        min-width: auto;
+    }
+
+    /* Results Page */
+    .result-badge {
+        font-size: 0.85rem;
+        padding: var(--space-xs) var(--space-md);
+    }
+
+    .result-hero {
+        padding: var(--space-lg);
+    }
+
+    .gauge-container {
+        width: 180px;
+        height: 108px;
+    }
+
+    .gauge-percent {
+        font-size: 1.75rem;
+    }
+
+    .gauge-legend {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--space-sm);
+    }
+
+    .quick-stats {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+    }
+
+    .stat-card {
+        padding: var(--space-md);
+    }
+
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+
+    .stat-info .stat-value {
+        font-size: 1.25rem;
+    }
+
+    .section-card {
+        padding: var(--space-lg);
+        margin-bottom: var(--space-xl);
+    }
+
+    .section-card-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: var(--space-lg);
+    }
+
+    .section-card-header h2 {
+        font-size: 1.1rem;
+    }
+
+    .section-card-header p {
+        font-size: 0.85rem;
+    }
+
+    .factor-legend {
+        flex-direction: column;
+        gap: var(--space-sm);
+        align-items: center;
+    }
+
+    .whatif-card {
+        padding: var(--space-lg);
+    }
+
+    .whatif-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.25rem;
+    }
+
+    .whatif-comparison {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+
+    .whatif-arrow {
+        transform: rotate(90deg);
+    }
+
+    .recommendation-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: var(--space-md);
+    }
+
+    .rec-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .results-actions {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+
+    .results-actions .btn {
+        width: 100%;
+    }
+
+    .chart-card {
+        padding: var(--space-md);
+    }
+
+    .chart-wrapper {
+        height: 160px;
+    }
+
+    .explanation-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: var(--space-sm);
+    }
+}
+
+/* Mobile: 320px - 575px */
+@media (max-width: 575px) {
+    .container {
+        padding: 0 var(--space-sm);
+    }
+
+    /* Assessment Page */
+    .assessment-page,
+    .results-page {
+        padding: calc(60px + var(--space-md)) 0 var(--space-lg);
+    }
+
+    .header-content h1,
+    .result-title {
+        font-size: 1.5rem;
+        line-height: 1.3;
+    }
+
+    .header-content p,
+    .result-description {
+        font-size: 0.9rem;
+    }
+
+    .progress-container {
+        margin-bottom: var(--space-xl);
+    }
+
+    .step-header {
+        padding: var(--space-md);
+    }
+
+    .step-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .step-header h2 {
+        font-size: 1rem;
+    }
+
+    .step-header p {
+        font-size: 0.8rem;
+    }
+
+    .form-input,
+    .form-select {
+        padding: var(--space-sm);
+        font-size: 0.9rem;
+    }
+
+    .form-group label {
+        font-size: 0.8rem;
+    }
+
+    .input-hint {
+        font-size: 0.75rem;
+    }
+
+    .bmi-calculator {
+        padding: var(--space-md);
+    }
+
+    .bmi-value {
+        font-size: 2rem;
+    }
+
+    .bmi-label {
+        font-size: 0.75rem;
+    }
+
+    .lifestyle-card {
+        padding: var(--space-md);
+    }
+
+    .lifestyle-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.1rem;
+    }
+
+    .lifestyle-card h3 {
+        font-size: 1rem;
+    }
+
+    .lifestyle-card p {
+        font-size: 0.85rem;
+    }
+
+    .toggle-btn,
+    .toggle-option {
+        padding: var(--space-sm);
+        font-size: 0.85rem;
+    }
+
+    .info-card {
+        padding: var(--space-md);
+        font-size: 0.85rem;
+    }
+
+    .form-navigation {
+        padding-top: var(--space-md);
+    }
+
+    /* Results Page */
+    .result-hero {
+        padding: var(--space-md);
+        gap: var(--space-md);
+    }
+
+    .result-badge {
+        font-size: 0.8rem;
+    }
+
+    .gauge-container {
+        width: 160px;
+        height: 96px;
+    }
+
+    .gauge-percent {
+        font-size: 1.5rem;
+    }
+
+    .gauge-label {
+        font-size: 0.75rem;
+    }
+
+    .gauge-legend {
+        font-size: 0.75rem;
+    }
+
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+        padding: var(--space-sm);
+    }
+
+    .stat-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    .stat-info .stat-value {
+        font-size: 1.1rem;
+    }
+
+    .stat-info .stat-label {
+        font-size: 0.75rem;
+    }
+
+    .section-card {
+        padding: var(--space-md);
+    }
+
+    .section-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    .section-card-header h2 {
+        font-size: 1rem;
+    }
+
+    .section-card-header p {
+        font-size: 0.8rem;
+    }
+
+    .factor-item {
+        padding: var(--space-sm);
+        gap: var(--space-sm);
+    }
+
+    .factor-name {
+        font-size: 0.9rem;
+    }
+
+    .factor-value {
+        font-size: 0.75rem;
+    }
+
+    .factor-impact {
+        font-size: 0.75rem;
+    }
+
+    .whatif-card {
+        padding: var(--space-md);
+    }
+
+    .whatif-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.1rem;
+    }
+
+    .whatif-card h3 {
+        font-size: 0.9rem;
+    }
+
+    .whatif-current .value,
+    .whatif-new .value {
+        font-size: 1.1rem;
+    }
+
+    .whatif-change {
+        font-size: 0.75rem;
+    }
+
+    .recommendation-item {
+        padding: var(--space-sm);
+    }
+
+    .rec-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+
+    .rec-content h4 {
+        font-size: 0.9rem;
+    }
+
+    .rec-content p {
+        font-size: 0.8rem;
+    }
+
+    .disclaimer-card {
+        padding: var(--space-md);
+        font-size: 0.85rem;
+    }
+
+    .chart-card {
+        padding: var(--space-sm);
+    }
+
+    .chart-card h4 {
+        font-size: 0.9rem;
+    }
+
+    .chart-wrapper {
+        height: 140px;
+    }
+
+    .metric-badge {
+        font-size: 0.8rem;
+    }
+
+    .chart-note {
+        font-size: 0.75rem;
+    }
+
+    .explanation-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
+    }
+
+    .explanation-content h4 {
+        font-size: 0.9rem;
+    }
+
+    .explanation-content p {
+        font-size: 0.8rem;
+    }
+
+    .explanation-meta {
+        font-size: 0.75rem;
+    }
+
+    .no-results {
+        padding: var(--space-xl);
+    }
+
+    .no-results-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+    }
+
+    .no-results h2 {
+        font-size: 1.25rem;
+    }
+
+    .no-results p {
+        font-size: 0.95rem;
+    }
+}
+
+/* Extra Small Mobile: < 375px */
+@media (max-width: 374px) {
+
+    .header-content h1,
+    .result-title {
+        font-size: 1.25rem;
+    }
+
+    .step-header h2 {
+        font-size: 0.95rem;
+    }
+
+    .form-input,
+    .form-select {
+        font-size: 0.85rem;
+    }
+
+    .btn {
+        padding: var(--space-sm) var(--space-md);
+        font-size: 0.85rem;
+    }
+
+    .bmi-value {
+        font-size: 1.75rem;
+    }
+
+    .gauge-percent {
+        font-size: 1.25rem;
+    }
+
+    .stat-info .stat-value {
+        font-size: 1rem;
+    }
 }
