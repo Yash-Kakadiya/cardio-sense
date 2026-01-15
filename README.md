@@ -12,12 +12,7 @@
   [![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
   [![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 
-  <img src="assets/banner.png" alt="Project Banner" width="100%">
-
 </div>
-
----
-
 
 ## 🚀 Overview
 Cardiovascular diseases (CVDs) are the leading cause of death globally. Early detection is critical, but traditional methods can be slow and subjective.
@@ -27,6 +22,23 @@ Cardiovascular diseases (CVDs) are the leading cause of death globally. Early de
 Unlike black-box AI tools, CardioSense provides **explainable insights**, helping both patients understand their risk and doctors visualize the contributing factors.
 
 ---
+
+### 🎥 [Deployed Link: CardioSense](https://cardio-sense.onrender.com/)
+
+Click below GIF to watch the full system walkthrough video 👇
+
+<a href="https://drive.google.com/file/d/1S5Y_PO3POhRvEEx3kAm0qV9A4AD8FSH2/view?usp=sharing" target="_blank">
+  <img src="assets/banner.gif" alt="CardioSense Demo Video" width="100%">
+</a>
+<br/>
+or
+
+**[▶ Click here to Watch the Full Demo on Google Drive](https://drive.google.com/file/d/1S5Y_PO3POhRvEEx3kAm0qV9A4AD8FSH2/view?usp=sharing)**
+
+
+---
+
+
 
 ## ✨ Key Features
 * **🩺 Interactive Patient Wizard:** A user-friendly, step-by-step form to collect health data without overwhelming the user.
@@ -127,7 +139,7 @@ CardioSense/
 1.  **Clone the Repository**
 
     ```bash
-    git clone [https://github.com/YourUsername/CardioSense.git](https://github.com/YourUsername/CardioSense.git)
+    git clone https://github.com/Yash-Kakadiya/cardio-sense.git
     cd CardioSense
     ```
 
@@ -196,11 +208,11 @@ This project is configured for seamless deployment on **Render**.
 
 -----
 
-## 📜 License
+## 🔖 License
 
-This project is licensed under the [MIT License](https://www.google.com/search?q=LICENSE).
+This project is licensed under the MIT License - see the `LICENSE` file for details.
 
 <br>
 <div align="center">
-  <b>Developed with 💖 by ¥@$# Kakadiya</b>
+  <b>Developed with 💖 by <a href="https://github.com/Yash-Kakadiya" target="_blank" style="text-decoration:none; color:#F4C430;"> ¥@$# Kakadiya</a></b>
 </div>
