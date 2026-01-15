@@ -340,49 +340,6 @@ body::after {
     }
 }
 
-/* Floating Hearts Container */
-/* .particles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-.particle {
-    position: absolute;
-    font-size: 16px;
-    animation: heart-float linear infinite;
-    opacity: 0.4;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-}
-
-@keyframes heart-float {
-    0% {
-        transform: translateY(-100vh) rotate(0deg) scale(0.8);
-        opacity: 0;
-    }
-
-    5% {
-        opacity: 0.5;
-    }
-
-    50% {
-        opacity: 0.6;
-    }
-
-    95% {
-        opacity: 0.4;
-    }
-
-    100% {
-        transform: translateY(100vh) rotate(360deg) scale(1.2);
-        opacity: 0;
-    }
-} */
 
 /* Main Content Padding for Floating Navbar */
 main {
@@ -1463,6 +1420,9 @@ section {
     background: var(--bg-primary);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .step-icon {
@@ -1787,6 +1747,10 @@ section {
         height: 1px;
     }
 
+    .hero-scroll {
+        display: none;
+    }
+
     .step-connector {
         display: none;
     }
@@ -1900,7 +1864,7 @@ section {
     }
 
     .hero-stats {
-        flex-direction: column;
+        flex-direction: row;
         gap: var(--space-md);
     }
 
@@ -1975,15 +1939,16 @@ section {
         flex-direction: column;
         text-align: center;
         align-items: center;
+        display: flex;
     }
 
     .step-number {
         position: static;
-        margin-bottom: var(--space-md);
+        /* margin-bottom: var(--space-md); */
     }
 
     .step-content {
-        padding: 0;
+        padding-top: 5px;
     }
 
     .step-icon {
@@ -2051,9 +2016,7 @@ section {
 
 /* Mobile: 320px - 575px */
 @media (max-width: 575px) {
-    main {
-        padding-top: 20px;
-    }
+
 
     /* Base Adjustments */
     .container {
@@ -2146,6 +2109,7 @@ section {
 
     .feature-card {
         padding: var(--space-md);
+
     }
 
     .feature-icon {
@@ -2170,7 +2134,7 @@ section {
     .step-number {
         width: 40px;
         height: 40px;
-        font-size: 1.1rem;
+        font-size: 2rem;
     }
 
     .step-icon {
@@ -2189,8 +2153,9 @@ section {
     }
 
     /* Metrics */
+    /*i want two item in one row*/
     .metrics-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .metric-item {

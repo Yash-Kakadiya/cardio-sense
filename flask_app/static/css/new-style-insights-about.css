@@ -105,18 +105,6 @@
     margin-bottom: var(--space-2xl);
 }
 
-@media (max-width: 900px) {
-    .model-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 500px) {
-    .model-cards {
-        grid-template-columns: 1fr;
-    }
-}
-
 .model-card {
     padding: var(--space-xl);
     background: var(--bg-secondary);
@@ -244,42 +232,11 @@
     font-size: 0.95rem;
 }
 
-/* Mobile responsive for ensemble */
-@media (max-width: 768px) {
-    .ensemble-visual {
-        flex-direction: column;
-        gap: var(--space-lg);
-    }
-
-    .ensemble-arrow {
-        transform: rotate(90deg);
-        font-size: 1.25rem;
-    }
-
-    .ensemble-models {
-        grid-template-columns: repeat(2, 1fr);
-        max-width: 280px;
-        margin: 0 auto;
-    }
-
-    .ensemble-input,
-    .ensemble-output,
-    .ensemble-result {
-        min-width: 200px;
-    }
-}
-
 /* Metrics Dashboard */
 .metrics-dashboard {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--space-lg);
-}
-
-@media (max-width: 768px) {
-    .metrics-dashboard {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 .metric-card {
@@ -365,12 +322,6 @@
     align-items: center;
 }
 
-@media (max-width: 768px) {
-    .dataset-info {
-        grid-template-columns: 1fr;
-    }
-}
-
 .dataset-stats {
     display: flex;
     justify-content: space-around;
@@ -430,12 +381,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-2xl);
-}
-
-@media (max-width: 768px) {
-    .shap-explanation {
-        grid-template-columns: 1fr;
-    }
 }
 
 .shap-content h3 {
@@ -524,18 +469,6 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-lg);
-}
-
-@media (max-width: 900px) {
-    .education-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .education-grid {
-        grid-template-columns: 1fr;
-    }
 }
 
 .education-card {
@@ -633,13 +566,6 @@
     gap: var(--space-3xl);
     align-items: center;
     margin-bottom: var(--space-3xl);
-}
-
-@media (max-width: 768px) {
-    .about-hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
 }
 
 .about-hero-content h1 {
@@ -756,18 +682,6 @@
     gap: var(--space-lg);
 }
 
-@media (max-width: 900px) {
-    .about-features-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 500px) {
-    .about-features-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
 .about-feature {
     text-align: center;
     padding: var(--space-xl);
@@ -802,12 +716,6 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--space-lg);
-}
-
-@media (max-width: 768px) {
-    .tech-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 .tech-category {
@@ -845,13 +753,6 @@
     display: flex;
     gap: var(--space-2xl);
     align-items: center;
-}
-
-@media (max-width: 768px) {
-    .developer-card {
-        flex-direction: column;
-        text-align: center;
-    }
 }
 
 .developer-avatar {
@@ -897,12 +798,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-md);
-}
-
-@media (max-width: 768px) {
-    .social-links {
-        justify-content: center;
-    }
 }
 
 .social-link {
@@ -973,12 +868,6 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-lg);
-}
-
-@media (max-width: 768px) {
-    .project-links-grid {
-        grid-template-columns: 1fr;
-    }
 }
 
 .project-link {
@@ -1076,14 +965,6 @@
 
 .charts-row:last-child {
     grid-template-columns: 1fr 2fr;
-}
-
-@media (max-width: 900px) {
-
-    .charts-row,
-    .charts-row:last-child {
-        grid-template-columns: 1fr;
-    }
 }
 
 .chart-card {
@@ -1257,75 +1138,100 @@
     color: var(--text-muted);
 }
 
-@media (max-width: 600px) {
-    .model-info-grid {
-        grid-template-columns: 1fr;
-    }
+/* ==================== RESPONSIVE MEDIA QUERIES ==================== */
+/*
+ * Comprehensive responsive design for all device sizes
+ * Breakpoint Strategy:
+ * - 1400px+     : Extra Large Desktop
+ * - 1200-1399px : Large Desktop  
+ * - 992-1199px  : Desktop/Laptop
+ * - 768-991px   : Tablet (Portrait & Landscape)
+ * - 576-767px   : Large Mobile (Phablets)
+ * - 400-575px   : Mobile
+ * - 320-399px   : Small Mobile
+ * - <320px      : Extra Small Mobile
+ */
 
-    .matrix-header,
-    .matrix-row {
-        grid-template-columns: 80px 1fr 1fr;
-    }
-
-    .matrix-cell {
-        padding: var(--space-md);
-    }
-
-    .matrix-cell strong {
-        font-size: 1.25rem;
-    }
-}
-
-/* ==================== ADDITIONAL RESPONSIVE ENHANCEMENTS ==================== */
-
-/* Large Desktop: 1400px+ */
+/* ========== EXTRA LARGE DESKTOP: 1400px and above ========== */
 @media (min-width: 1400px) {
+
+    /* Container sizing for extra large screens */
     .container {
         max-width: 1320px;
     }
-}
 
-/* Desktop: 1200px - 1399px */
-@media (max-width: 1399px) {
-    .container {
-        max-width: 1140px;
+    /* Enhanced spacing for large displays */
+    .page-header {
+        max-width: 800px;
+    }
+
+    .insight-section {
+        padding: var(--space-3xl);
     }
 }
 
-/* Laptop: 992px - 1199px */
+/* ========== LARGE DESKTOP: 1200px - 1399px ========== */
+@media (max-width: 1399px) {
+
+    /* Container adjustments */
+    .container {
+        max-width: 1140px;
+    }
+
+    /* Maintain optimal reading width */
+    .page-header {
+        max-width: 750px;
+    }
+}
+
+/* ========== DESKTOP/LAPTOP: 992px - 1199px ========== */
 @media (max-width: 1199px) {
+
+    /* Container sizing */
     .container {
         max-width: 960px;
     }
 
-    .models-grid,
+    /* Grid adjustments for medium screens */
+    .model-cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .about-features-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .tech-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .project-links-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Spacing refinements */
     .education-grid,
     .tech-grid {
         gap: var(--space-lg);
     }
-
-    .performance-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .mission-grid {
-        gap: var(--space-xl);
-    }
 }
 
-/* Tablet: 768px - 991px */
+/* ========== TABLET: 768px - 991px ========== */
 @media (max-width: 991px) {
+
+    /* Container and spacing */
     .container {
         max-width: 720px;
         padding: 0 var(--space-lg);
     }
 
-    /* Insights & About Pages */
+    /* Page structure adjustments */
     .insights-page,
     .about-page {
         padding: calc(70px + var(--space-xl)) 0 var(--space-2xl);
     }
 
+    /* Typography scaling */
     .page-header {
         margin-bottom: var(--space-2xl);
     }
@@ -1338,6 +1244,7 @@
         font-size: 1rem;
     }
 
+    /* Section adjustments */
     .insight-section {
         padding: var(--space-xl);
     }
@@ -1356,60 +1263,107 @@
         font-size: 1.25rem;
     }
 
-    .models-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .performance-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .education-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .confusion-grid {
+    /* Grid layouts - 2 columns */
+    .model-cards {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .mission-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-lg);
+    .metrics-dashboard {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .mission-card {
-        flex-direction: column;
-        text-align: center;
+    .education-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .mission-icon {
-        margin: 0 auto var(--space-lg);
-    }
-
-    .value-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+    .about-features-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .tech-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Single column layouts */
+    .dataset-info {
         grid-template-columns: 1fr;
+    }
+
+    .shap-explanation {
+        grid-template-columns: 1fr;
+    }
+
+    .about-hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .project-links-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Developer section */
+    .developer-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+
+    /* Charts */
+    .charts-row,
+    .charts-row:last-child {
+        grid-template-columns: 1fr;
+    }
+
+    /* Ensemble explanation */
+    .ensemble-visual {
+        flex-direction: column;
+        gap: var(--space-lg);
+    }
+
+    .ensemble-arrow {
+        transform: rotate(90deg);
+        font-size: 1.25rem;
+    }
+
+    .ensemble-models {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 280px;
+        margin: 0 auto;
+    }
+
+    .ensemble-input,
+    .ensemble-output,
+    .ensemble-result {
+        min-width: 200px;
+    }
+
+    /* Dataset stats */
+    .dataset-stats {
+        flex-direction: column;
+        gap: var(--space-lg);
     }
 }
 
-/* Mobile Large: 576px - 767px */
+/* ========== LARGE MOBILE: 576px - 767px ========== */
 @media (max-width: 767px) {
+
+    /* Container and spacing */
     .container {
         max-width: 540px;
         padding: 0 var(--space-md);
     }
 
-    /* Insights & About Pages */
+    /* Page structure */
     .insights-page,
     .about-page {
         padding: calc(60px + var(--space-lg)) 0 var(--space-xl);
     }
 
+    /* Typography scaling */
     .page-badge {
         font-size: 0.8rem;
     }
@@ -1426,6 +1380,7 @@
         font-size: 0.95rem;
     }
 
+    /* Section styling */
     .insight-section {
         padding: var(--space-lg);
         margin-bottom: var(--space-xl);
@@ -1452,70 +1407,31 @@
         font-size: 0.85rem;
     }
 
-    /* Model Cards */
+    /* Grid layouts - single column */
+    .model-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .metrics-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .education-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Model cards */
     .model-card {
         padding: var(--space-lg);
     }
 
-    .model-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .model-badge {
-        margin: 0 auto var(--space-md);
-    }
-
-    .model-header h3 {
-        font-size: 1rem;
-    }
-
-    .model-score {
-        font-size: 2rem;
-    }
-
-    .model-features {
-        grid-template-columns: 1fr;
-    }
-
-    /* Performance Stats */
-    .performance-stat {
-        padding: var(--space-md);
-    }
-
-    .performance-stat .stat-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1.1rem;
-    }
-
-    .performance-stat .stat-value {
-        font-size: 1.5rem;
-    }
-
-    /* Charts */
-    .chart-container {
-        padding: var(--space-lg);
-    }
-
-    .chart-container h3 {
-        font-size: 1rem;
-    }
-
-    .chart-wrapper {
-        height: 250px;
-    }
-
-    /* Education Cards */
+    /* Education cards */
     .education-card {
         padding: var(--space-lg);
-    }
-
-    .education-icon {
-        width: 48px;
-        height: 48px;
-        font-size: 1.25rem;
     }
 
     .education-card h3 {
@@ -1526,20 +1442,7 @@
         font-size: 0.85rem;
     }
 
-    /* Confusion Matrix */
-    .matrix-grid {
-        padding: var(--space-lg);
-    }
-
-    .matrix-cell {
-        padding: var(--space-md);
-    }
-
-    .matrix-cell strong {
-        font-size: 1.5rem;
-    }
-
-    /* About Page */
+    /* About page elements */
     .about-hero {
         padding: var(--space-xl);
         text-align: center;
@@ -1549,75 +1452,56 @@
         font-size: 2rem;
     }
 
-    .hero-stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .floating-icons {
+        height: 200px;
     }
 
-    .mission-icon {
-        width: 56px;
-        height: 56px;
-        font-size: 1.5rem;
-    }
-
-    .value-icon {
-        width: 48px;
-        height: 48px;
+    .floating-icon {
+        width: 50px;
+        height: 50px;
         font-size: 1.25rem;
     }
 
-    .team-section {
-        padding: var(--space-xl);
-    }
-
-    .team-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: var(--space-lg);
-    }
-
-    .team-avatar {
-        margin: 0 auto var(--space-lg);
-    }
-
-    .team-social {
-        justify-content: center;
-    }
-
+    /* Tech categories */
     .tech-category {
         padding: var(--space-lg);
     }
 
-    .category-icon {
-        width: 48px;
-        height: 48px;
-        font-size: 1.25rem;
+    /* Confusion matrix */
+    .model-info-grid {
+        grid-template-columns: 1fr;
     }
 
-    .tech-item {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+    .matrix-header,
+    .matrix-row {
+        grid-template-columns: 80px 1fr 1fr;
+    }
+
+    .matrix-cell {
         padding: var(--space-md);
     }
 
-    .tech-logo {
-        margin: 0 auto var(--space-md);
+    .matrix-cell strong {
+        font-size: 1.25rem;
     }
 }
 
-/* Mobile: 320px - 575px */
+/* ========== MOBILE: 400px - 575px ========== */
 @media (max-width: 575px) {
+
+    /* Container and spacing */
     .container {
         padding: 0 var(--space-sm);
     }
 
-    /* Insights & About Pages */
+    /* Page structure */
     .insights-page,
     .about-page {
         padding: calc(60px + var(--space-md)) 0 var(--space-lg);
     }
 
+
+    /* Typography scaling */
     .page-header h1 {
         font-size: 1.5rem;
         line-height: 1.3;
@@ -1627,6 +1511,7 @@
         font-size: 0.9rem;
     }
 
+    /* Section styling */
     .insight-section {
         padding: var(--space-md);
     }
@@ -1645,76 +1530,89 @@
         font-size: 0.8rem;
     }
 
-    /* Model Cards */
+    /* Model cards */
     .model-card {
         padding: var(--space-md);
     }
 
-    .model-badge {
-        padding: var(--space-xs) var(--space-sm);
-        font-size: 0.7rem;
-    }
-
-    .model-header h3 {
-        font-size: 0.95rem;
-    }
-
-    .model-header p {
-        font-size: 0.8rem;
-    }
-
-    .model-score {
-        font-size: 1.75rem;
-    }
-
-    .score-label {
-        font-size: 0.75rem;
-    }
-
-    .model-features li {
-        font-size: 0.8rem;
-    }
-
-    /* Performance Stats */
-    .performance-stat {
-        padding: var(--space-sm);
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .performance-stat .stat-icon {
-        width: 36px;
-        height: 36px;
-        font-size: 1rem;
-    }
-
-    .performance-stat .stat-value {
+    .model-icon {
+        width: 56px;
+        height: 56px;
         font-size: 1.25rem;
     }
 
-    .performance-stat .stat-label {
-        font-size: 0.75rem;
+    .model-card h3 {
+        font-size: 0.95rem;
     }
 
-    /* Charts */
-    .chart-container {
-        padding: var(--space-md);
+    .model-card p {
+        font-size: 0.8rem;
     }
 
-    .chart-container h3 {
+    .model-tag {
+        font-size: 0.7rem;
+    }
+
+    /* Ensemble models */
+    .ensemble-models {
+        grid-template-columns: repeat(, 1fr);
+        max-width: 220px;
+    }
+
+    /* Metrics dashboard */
+    .metric-card {
+        padding: var(--space-lg);
+    }
+
+    .metric-circle {
+        width: 100px;
+        height: 100px;
+    }
+
+    .metric-value {
+        font-size: 1.1rem;
+    }
+
+    .metric-card h3 {
         font-size: 0.9rem;
     }
 
-    .chart-wrapper {
-        height: 200px;
+    .metric-card p {
+        font-size: 0.75rem;
     }
 
-    /* Education Cards */
+    /* Dataset info */
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .dataset-source {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .dataset-source>i {
+        font-size: 2rem;
+    }
+
+    /* SHAP bars */
+    .shap-feature {
+        width: 100px;
+        font-size: 0.8rem;
+    }
+
+    .shap-direction {
+        width: 40px;
+        font-size: 0.75rem;
+    }
+
+    /* Education cards */
     .education-card {
         padding: var(--space-md);
     }
 
-    .education-icon {
+    .edu-icon {
         width: 44px;
         height: 44px;
         font-size: 1.1rem;
@@ -1724,36 +1622,32 @@
         font-size: 0.95rem;
     }
 
-    .education-card p {
+    .education-card>p {
         font-size: 0.8rem;
     }
 
-    .education-card ul li {
-        font-size: 0.8rem;
-    }
-
-    /* Confusion Matrix */
-    .confusion-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .matrix-grid {
-        padding: var(--space-md);
-    }
-
-    .matrix-cell {
-        padding: var(--space-sm);
-    }
-
-    .matrix-cell strong {
-        font-size: 1.25rem;
-    }
-
-    .matrix-cell span {
+    .edu-ranges .range {
         font-size: 0.75rem;
     }
 
-    /* About Page */
+    .edu-fact {
+        font-size: 0.8rem;
+    }
+
+    /* Insight CTA */
+    .insight-cta {
+        padding: var(--space-2xl) var(--space-lg);
+    }
+
+    .insight-cta h2 {
+        font-size: 1.25rem;
+    }
+
+    .insight-cta p {
+        font-size: 1rem;
+    }
+
+    /* About hero */
     .about-hero {
         padding: var(--space-lg);
     }
@@ -1766,165 +1660,532 @@
         font-size: 0.9rem;
     }
 
-    .hero-stats-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-sm);
+    .about-hero-visual {
+        height: 180px;
     }
 
-    .hero-stat {
-        padding: var(--space-md);
-    }
-
-    .hero-stat .stat-value {
-        font-size: 1.75rem;
-    }
-
-    .hero-stat .stat-label {
-        font-size: 0.8rem;
-    }
-
-    .mission-card {
-        padding: var(--space-md);
-    }
-
-    .mission-icon {
-        width: 48px;
-        height: 48px;
-        font-size: 1.25rem;
-    }
-
-    .mission-card h3 {
-        font-size: 1rem;
-    }
-
-    .mission-card p {
-        font-size: 0.85rem;
-    }
-
-    .value-card {
-        padding: var(--space-md);
-    }
-
-    .value-icon {
-        width: 44px;
-        height: 44px;
+    .floating-icon {
+        width: 45px;
+        height: 45px;
         font-size: 1.1rem;
     }
 
-    .value-card h4 {
-        font-size: 0.95rem;
-    }
-
-    .value-card p {
-        font-size: 0.8rem;
-    }
-
-    .team-section {
+    /* About section */
+    .about-section {
         padding: var(--space-lg);
     }
 
-    .team-card {
-        padding: var(--space-md);
+    .about-section h2 {
+        font-size: 1.25rem;
     }
 
-    .team-avatar {
-        width: 80px;
-        height: 80px;
+    /* Mission content */
+    .mission-content>p {
+        font-size: 1rem;
     }
 
-    .team-name {
-        font-size: 1.1rem;
+    .mission-stats {
+        flex-direction: column;
+        gap: var(--space-xl);
     }
 
-    .team-role {
-        font-size: 0.8rem;
+    .mission-stat .stat-value {
+        font-size: 2rem;
     }
 
-    .team-bio {
+    .mission-stat .stat-label {
         font-size: 0.85rem;
     }
 
+    /* About features */
+    .about-feature {
+        padding: var(--space-lg);
+    }
+
+    .about-feature .feature-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.1rem;
+    }
+
+    .about-feature h3 {
+        font-size: 0.95rem;
+    }
+
+    .about-feature p {
+        font-size: 0.85rem;
+    }
+
+    /* Tech stack */
     .tech-category {
         padding: var(--space-md);
     }
 
-    .category-icon {
-        width: 44px;
-        height: 44px;
-        font-size: 1.1rem;
-    }
-
     .tech-category h3 {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     .tech-item {
-        padding: var(--space-sm);
+        font-size: 0.75rem;
+        padding: var(--space-xs);
     }
 
-    .tech-logo {
-        width: 36px;
-        height: 36px;
+    /* Developer card */
+    .developer-avatar img {
+        width: 140px;
+        height: 140px;
     }
 
-    .tech-item strong {
+    .developer-info h2 {
+        font-size: 0.9rem;
+    }
+
+    .developer-info h3 {
+        font-size: 1.5rem;
+    }
+
+    .developer-title {
+        font-size: 0.95rem;
+    }
+
+    .developer-bio {
+        font-size: 0.95rem;
+    }
+
+    /* Social links */
+    .social-link {
+        padding: var(--space-sm) var(--space-md);
         font-size: 0.85rem;
     }
 
-    .tech-item span {
-        font-size: 0.75rem;
-    }
-
-    .cta-section {
-        padding: var(--space-lg) 0;
-    }
-
-    .disclaimer-section {
+    /* Project links */
+    .project-link {
         padding: var(--space-lg);
     }
 
-    .disclaimer-section h3 {
+    .project-link>i:first-child {
+        font-size: 1.5rem;
+    }
+
+    .project-link h4 {
+        font-size: 0.95rem;
+    }
+
+    .project-link p {
+        font-size: 0.8rem;
+    }
+
+    /* About disclaimer */
+    .about-disclaimer {
+        padding: var(--space-lg);
+    }
+
+    .about-disclaimer>i {
+        font-size: 1.25rem;
+    }
+
+    .about-disclaimer h4 {
+        font-size: 0.95rem;
+    }
+
+    .about-disclaimer p {
+        font-size: 0.85rem;
+    }
+
+    /* About CTA */
+    .about-cta {
+        padding: var(--space-2xl) var(--space-lg);
+    }
+
+    .about-cta h2 {
+        font-size: 1.5rem;
+    }
+
+    .about-cta p {
         font-size: 1rem;
     }
 
-    .disclaimer-section p,
-    .disclaimer-section ul li {
+    /* Charts */
+    .chart-card {
+        padding: var(--space-lg);
+    }
+
+    .chart-header h3 {
+        font-size: 1rem;
+    }
+
+    .chart-header p {
         font-size: 0.8rem;
+    }
+
+    /* Confusion matrix */
+    .confusion-matrix {
+        font-size: 0.85rem;
+    }
+
+    .matrix-header {
+        font-size: 0.65rem;
+        grid-template-columns: 70px 1fr 1fr;
+    }
+
+    .matrix-row {
+        grid-template-columns: 70px 1fr 1fr;
+    }
+
+    .row-label {
+        font-size: 0.65rem;
+    }
+
+    .matrix-cell {
+        padding: var(--space-sm);
+    }
+
+    .matrix-cell strong {
+        font-size: 1.1rem;
+    }
+
+    .matrix-cell small {
+        font-size: 0.55rem;
+    }
+
+    /* Info items */
+    .info-item {
+        padding: var(--space-sm);
+    }
+
+    .info-item i {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+
+    .info-item strong {
+        font-size: 0.8rem;
+    }
+
+    .info-item span {
+        font-size: 0.75rem;
     }
 }
 
-/* Extra Small Mobile: < 375px */
-@media (max-width: 374px) {
+/* ========== SMALL MOBILE: 320px - 399px ========== */
+@media (max-width: 399px) {
+
+    /* Further typography scaling */
+    .page-header h1 {
+        font-size: 1.35rem;
+    }
+
+    .page-header p {
+        font-size: 0.85rem;
+    }
+
+    /* Section headers */
+    .insight-header h2 {
+        font-size: 0.95rem;
+    }
+
+    .insight-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+
+    /* Model cards */
+    .model-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.1rem;
+    }
+
+    .model-card h3 {
+        font-size: 0.9rem;
+    }
+
+    .model-card p {
+        font-size: 0.75rem;
+    }
+
+    /* Metrics */
+    .metric-circle {
+        width: 90px;
+        height: 90px;
+    }
+
+    .metric-value {
+        font-size: 1rem;
+    }
+
+    .metric-card h3 {
+        font-size: 0.85rem;
+    }
+
+    /* Dataset */
+    .stat-number {
+        font-size: 1.75rem;
+    }
+
+    .dataset-source>i {
+        font-size: 1.75rem;
+    }
+
+    /* SHAP bars */
+    .shap-feature {
+        width: 80px;
+        font-size: 0.75rem;
+    }
+
+    .shap-bar-fill {
+        height: 6px;
+    }
+
+    /* Education */
+    .edu-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .education-card h3 {
+        font-size: 0.9rem;
+    }
+
+    .education-card>p {
+        font-size: 0.75rem;
+    }
+
+    /* About */
+    .about-hero h1 {
+        font-size: 1.35rem;
+    }
+
+    .about-hero-visual {
+        height: 150px;
+    }
+
+    .floating-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .mission-stat .stat-value {
+        font-size: 1.75rem;
+    }
+
+    /* About features */
+    .about-feature .feature-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1rem;
+    }
+
+    .about-feature h3 {
+        font-size: 0.9rem;
+    }
+
+    .about-feature p {
+        font-size: 0.8rem;
+    }
+
+    /* Developer */
+    .developer-avatar img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .developer-info h3 {
+        font-size: 1.35rem;
+    }
+
+    /* Social links */
+    .social-link {
+        font-size: 0.8rem;
+        padding: var(--space-xs) var(--space-sm);
+    }
+
+    /* Charts */
+    .chart-header h3 {
+        font-size: 0.95rem;
+    }
+
+    .matrix-cell strong {
+        font-size: 1rem;
+    }
+
+    .info-item i {
+        width: 28px;
+        height: 28px;
+        font-size: 0.85rem;
+    }
+}
+
+/* ========== EXTRA SMALL MOBILE: < 320px ========== */
+@media (max-width: 319px) {
+
+    /* Minimal spacing */
+    .container {
+        padding: 0 var(--space-xs);
+    }
+
+    /* Typography */
     .page-header h1 {
         font-size: 1.25rem;
     }
 
     .insight-header h2 {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
 
-    .model-score {
+    /* Icons and elements */
+    .insight-icon,
+    .model-icon,
+    .edu-icon,
+    .about-feature .feature-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+
+    /* Metrics */
+    .metric-circle {
+        width: 80px;
+        height: 80px;
+    }
+
+    .metric-value {
+        font-size: 0.9rem;
+    }
+
+    /* Stats */
+    .stat-number {
         font-size: 1.5rem;
     }
 
-    .performance-stat .stat-value {
-        font-size: 1.1rem;
-    }
-
-    .chart-wrapper {
-        height: 180px;
-    }
-
-    .about-hero h1 {
-        font-size: 1.25rem;
-    }
-
-    .hero-stat .stat-value {
+    .mission-stat .stat-value {
         font-size: 1.5rem;
     }
 
-    .btn {
-        padding: var(--space-sm) var(--space-md);
-        font-size: 0.85rem;
+    /* Avatar */
+    .developer-avatar img {
+        width: 100px;
+        height: 100px;
+    }
+
+    /* Buttons and links */
+    .btn,
+    .social-link {
+        padding: var(--space-xs) var(--space-sm);
+        font-size: 0.75rem;
+    }
+
+    /* Matrix */
+    .matrix-header,
+    .matrix-row {
+        grid-template-columns: 60px 1fr 1fr;
+        font-size: 0.6rem;
+    }
+
+    .matrix-cell strong {
+        font-size: 0.9rem;
     }
 }
+
+/* ========== LANDSCAPE ORIENTATION ADJUSTMENTS ========== */
+@media (max-height: 600px) and (orientation: landscape) {
+
+    /* Reduce vertical spacing in landscape */
+    .insights-page,
+    .about-page {
+        padding: calc(60px + var(--space-md)) 0 var(--space-md);
+    }
+
+    .insight-section {
+        padding: var(--space-md);
+        margin-bottom: var(--space-md);
+    }
+
+    .about-hero-visual,
+    .floating-icons {
+        height: 150px;
+    }
+
+    .metric-circle {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+/* ========== HIGH RESOLUTION DISPLAYS ========== */
+@media (min-resolution: 192dpi) {
+
+    /* Enhance borders and shadows for retina displays */
+    .insight-section,
+    .model-card,
+    .education-card,
+    .about-feature,
+    .chart-card {
+        border-width: 0.5px;
+    }
+
+    .floating-icon,
+    .social-link {
+        border-width: 0.5px;
+    }
+}
+
+/* ========== PRINT STYLES ========== */
+@media print {
+
+    /* Remove unnecessary elements for print */
+    .floating-icons,
+    .social-links,
+    .about-cta {
+        display: none;
+    }
+
+    /* Optimize for print */
+    .insight-section,
+    .about-section {
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+    /* Ensure readability */
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+
+    h1 {
+        font-size: 24pt;
+    }
+
+    h2 {
+        font-size: 18pt;
+    }
+
+    h3 {
+        font-size: 14pt;
+    }
+}
+
+/* ========== REDUCED MOTION ========== */
+@media (prefers-reduced-motion: reduce) {
+
+    /* Disable animations for users who prefer reduced motion */
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .floating-icon {
+        animation: none;
+    }
+}
+
+/* ==================== END OF MEDIA QUERIES ==================== */
