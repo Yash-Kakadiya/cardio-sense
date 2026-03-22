@@ -56,6 +56,21 @@ model_metrics = {}
 shap_explainer = None  # SHAP explainer for interpretability
 
 
+def to_native_types(value):
+    """Recursively convert NumPy values to JSON-safe native Python types."""
+    if isinstance(value, np.generic):
+        return value.item()
+    if isinstance(value, np.ndarray):
+        return [to_native_types(item) for item in value.tolist()]
+    if isinstance(value, dict):
+        return {key: to_native_types(val) for key, val in value.items()}
+    if isinstance(value, list):
+        return [to_native_types(item) for item in value]
+    if isinstance(value, tuple):
+        return [to_native_types(item) for item in value]
+    return value
+
+
 def get_risk_category(probability):
     """Determine risk category based on probability thresholds."""
     if probability <= RISK_THRESHOLDS["low"]["max"]:
@@ -127,19 +142,23 @@ def load_artifacts():
             # 4. Confidence Distribution
             hist, _ = np.histogram(y_prob, bins=10, range=(0, 1))
 
-            model_metrics = {
-                "accuracy": round(accuracy_score(y_test, y_pred) * 100, 2),
-                "precision": round(precision_score(y_test, y_pred) * 100, 2),
-                "recall": round(recall_score(y_test, y_pred) * 100, 2),
-                "f1": round(f1_score(y_test, y_pred) * 100, 2),
-                "cm": cm.tolist(),
-                "roc_fpr": fpr.tolist(),
-                "roc_tpr": tpr.tolist(),
-                "feat_names": [feature_names[i] for i in sorted_idx[:top_n]],
-                "feat_scores": [round(importances[i], 4) for i in sorted_idx[:top_n]],
-                "conf_hist": hist.tolist(),
-                "class_dist": [int(np.sum(y_test == 0)), int(np.sum(y_test == 1))],
-            }
+            model_metrics = to_native_types(
+                {
+                    "accuracy": round(accuracy_score(y_test, y_pred) * 100, 2),
+                    "precision": round(precision_score(y_test, y_pred) * 100, 2),
+                    "recall": round(recall_score(y_test, y_pred) * 100, 2),
+                    "f1": round(f1_score(y_test, y_pred) * 100, 2),
+                    "cm": cm.tolist(),
+                    "roc_fpr": fpr.tolist(),
+                    "roc_tpr": tpr.tolist(),
+                    "feat_names": [feature_names[i] for i in sorted_idx[:top_n]],
+                    "feat_scores": [
+                        round(importances[i], 4) for i in sorted_idx[:top_n]
+                    ],
+                    "conf_hist": hist.tolist(),
+                    "class_dist": [int(np.sum(y_test == 0)), int(np.sum(y_test == 1))],
+                }
+            )
             print("✅ Metrics Calculated")
     except Exception as e:
         print(f"❌ Error: {e}")
