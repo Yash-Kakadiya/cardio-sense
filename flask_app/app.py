@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import datetime
 from flask import Flask, request, render_template, jsonify, session, redirect, url_for
 import joblib
 import os
@@ -694,7 +695,7 @@ def get_risk_description(level, prob):
 
 @app.route("/api/health")
 def health_check():
-    return jsonify({"status": "ok", "message": "Server is healthy"}), 200
+    return jsonify({"status": "ok", "message": "Server is healthy", "timestamp": datetime.datetime.now().isoformat()}), 200
 
 
 if __name__ == "__main__":
