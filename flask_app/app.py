@@ -692,5 +692,10 @@ def get_risk_description(level, prob):
         return f"Your cardiovascular risk score of {round(prob*100, 1)}% indicates elevated risk. We strongly recommend consulting with a healthcare professional for a thorough evaluation."
 
 
+@app.route("/api/health")
+def health_check():
+    return jsonify({"status": "ok", "message": "Server is healthy"}), 200
+
+
 if __name__ == "__main__":
     app.run(debug=True)
